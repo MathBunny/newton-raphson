@@ -13,19 +13,18 @@ import java.io.*;
  * @version 1.0.0.0
  */
 
-public class NewtonRaphsonApp extends JFrame implements ActionListener{
-	
+public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseListener{
 	private JPanel buttonPanel;
 	private JPanel screen;
 	private static final int UPPER_BUFFER = 100;
 	private Image backgroundImg;
+	private Image display;
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
 	 * @param args String [] The purpose of this is to pass arguements to the main method.
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new NewtonRaphsonApp();
 	}
 	
@@ -34,7 +33,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 	 */
 	public NewtonRaphsonApp(){
 		super("Newton Raphson Approximation Utility - Horatiu Lazu");
-		setSize(475,360);
+		setSize(465,351);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
 		
@@ -49,14 +48,22 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 	
-	private void drawBackground(){
+	/**
+	 * This method gets the background from the folder.
+	 * @throws IOException This throws an IOException if an error occurs.
+	 */
+	private void fetchImages(){
 		try{
 			 backgroundImg = ImageIO.read(new File("CalculatorBackground.jpg"));
+			 display = ImageIO.read(new File("monitor.jpg"));
 		}
 		catch(IOException e){
-			
+			JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
 		}
 	}
+	
+	
+	
 	
 	/**
 	 * This method adds the menu-bar.
@@ -81,6 +88,10 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		setJMenuBar(menu);
 	}
 	
+	/**
+	 * This method draws the interface with the grid-like display.
+	 * @param g
+	 */
 	private void drawInterface(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
 		for(int i = 0; i < 6; i++){
@@ -91,11 +102,21 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		}
 	}
 	
+	private void addButtonLabels(Graphics g){
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setFont(new Font("Helvetica-Neue", Font.PLAIN, 16)); 
+		//g2d.drawString("x", 5, 120);
+		//g2d.drawString("Ä(x)^2", 5, 180);
+		
+	}
+	
 	public void paint(Graphics g){
 		super.paint(g);
-		drawBackground();
+		fetchImages();
 		g.drawImage(backgroundImg, 0, 100, null);
+		g.drawImage(display,  0,  44,  490,  57,  null);
 		drawInterface(g);
+		addButtonLabels(g);
 	}
 	
 	/**
@@ -176,6 +197,29 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		repaint();
 		validate();
 		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO: Add blue animation
+		
+		int x = arg0.getX();
+		int y = arg0.getY();
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO: Take away the blue animation
 	}
 
 }
