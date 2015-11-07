@@ -1,12 +1,15 @@
 import javax.swing.*;
+
 import java.awt.event.*;
+import java.awt.*;
+
 
 /**
  * @author Horatiu Lazu
  * @version 1.0.0.0
  */
 
-public class NewtonRaphsonApp extends JFrame{
+public class NewtonRaphsonApp extends JFrame implements ActionListener{
 	
 	private JPanel buttonPanel;
 	private JPanel screen;
@@ -25,27 +28,55 @@ public class NewtonRaphsonApp extends JFrame{
 	 */
 	public NewtonRaphsonApp(){
 		super("Newton Raphson Approximation Utility - Horatiu Lazu");
-		super.setSize(500,500);
-		super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		//super.setVisible(true);
+		setSize(500,500);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		buttonPanel = new JPanel();
 		screen = new JPanel();
 		addButtonsToPanel();
 		
-		
 		add(buttonPanel);
 		//add(screen);
+		addMenuBar();
 		
-		super.setVisible(true);
+		setVisible(true);
 		
 		
 	}
 	
-	public void actionPeformed(ActionEvent ae){
-		if (ae.getActionCommand().equals("Hello World"))
-			System.out.println("Works");
-		System.out.println("Hello World...");
+	/**
+	 * This method adds the menu-bar.
+	 */
+	private void addMenuBar(){
+		JMenuBar menu = new JMenuBar();
+		
+		JMenu file = new JMenu("File");
+		JMenu help = new JMenu ("Help");
+		
+		JMenuItem quit = new JMenuItem("Quit");
+		quit.addActionListener(this);
+		
+		JMenuItem about = new JMenuItem("About");
+		
+		file.add(quit);
+		help.add(about);
+		
+		menu.add(file);
+		menu.add(help);
+		
+		setJMenuBar(menu);
+	}
+	
+	/**
+	 * This method handles all events in the program.
+	 * @param arg0 This variable stores the action command.
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		String cmd = arg0.getActionCommand();
+		if (cmd.equals("Quit"))
+			System.exit(0);
 	}
 	
 	/**
@@ -115,4 +146,5 @@ public class NewtonRaphsonApp extends JFrame{
 		
 		
 	}
+
 }
