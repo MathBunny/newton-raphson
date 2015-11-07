@@ -20,11 +20,15 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	private Image backgroundImg;
 	private Image display;
 	private Image highlight;
+	private Image displayInitialize;
+	private Image displayOff;
 	
-	private boolean drawHighlight = true; //temporary
+	private boolean drawHighlight = false; //temporary
 	private int highlightX = 0;
 	private int highlightY = 0;
 	private boolean drawZero = false;
+	private boolean turnedOn = false;
+	private boolean turnedOff = true;
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
@@ -51,6 +55,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		//add(screen);
 		addMenuBar();
 		
+		addMouseListener(this);
 		setVisible(true);
 	}
 	
@@ -63,13 +68,13 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			 backgroundImg = ImageIO.read(new File("CalculatorBackground.jpg"));
 			 display = ImageIO.read(new File("monitor.jpg"));
 			 highlight = ImageIO.read(new File("highlight.png"));
+			 displayInitialize = ImageIO.read(new File("initializing.jpg"));
+			 displayOff = ImageIO.read(new File("off.jpg"));
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
 		}
 	}
-	
-	
 	
 	
 	/**
@@ -85,6 +90,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		quit.addActionListener(this);
 		
 		JMenuItem about = new JMenuItem("About");
+		about.addActionListener(this);
 		
 		file.add(quit);
 		help.add(about);
@@ -113,33 +119,35 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		if (!drawHighlight)
 			return;
 		if (drawZero){
-			
-			
+			// TODO Draw zero in.
 		}
 		else{
 			g.drawImage(highlight, 58 * highlightX,  100 + 50 * highlightY,  null);
 		}
-		
 	}
 	
-	private void addButtonLabels(Graphics g){
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setFont(new Font("Helvetica-Neue", Font.PLAIN, 16)); 
-		//g2d.drawString("x", 5, 120);
-		//g2d.drawString("Ä(x)^2", 5, 180);
-		
-	}
 	
 	public void paint(Graphics g){
 		super.paint(g);
 		fetchImages();
 		
 		g.drawImage(backgroundImg, 0, 100, null);
-		g.drawImage(display,  0,  44,  490,  57,  null);
+		if (!turnedOff && !turnedOn)
+			g.drawImage(display,  0,  44,  490,  57,  null);
+		else if (turnedOn){
+			g.drawImage(displayInitialize, 0, 44, 490, 57, null);
+			try{
+				Thread.sleep(1000);
+			}
+			catch(Exception e){}
+			g.drawImage(display,  0,  44,  490,  57,  null);
+		}
+		else{
+			g.drawImage(displayOff, 0, 44, 490, 57, null);
+		}
 		
 		drawHighLight(g);
 		drawInterface(g);
-		addButtonLabels(g);
 	}
 	
 	/**
@@ -151,6 +159,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		String cmd = arg0.getActionCommand();
 		if (cmd.equals("Quit"))
 			System.exit(0);
+		else
+			new About();
 	}
 	
 	/**
@@ -224,9 +234,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO: Add blue animation
-		int x = arg0.getX();
-		int y = arg0.getY();
 		
 	}
 
@@ -237,11 +244,45 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	public void mouseExited(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {
+		// TODO: Make this code more KISS?
+		int x = arg0.getX() /58;
+		int y = (arg0.getY() -100) / 50;
+		//x = x / 58;
+		//y = (y - 100)/50;
+				
+		System.out.println("Mouse Pressed: (" + x + "," + y + ")");
+		if (x < 0 || x > 7 || y < 0 || y > 4)
+			return;
+		if (x == 4 && y == 0){
+			turnedOn = true;			
+		}
+		else{
+			turnedOn = false;
+		}
+		if (x == 5 && y == 0){
+			turnedOff = true;
+		}
+		else{
+			turnedOff = false;
+		}
+		
+		drawHighlight = true;
+		if (x >=4 && x <= 6 && y == 4)
+			drawZero = true;
+		else
+			drawZero = false;
+		highlightX = x;
+		highlightY = y;
+		repaint();
+		
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO: Take away the blue animation
+		drawHighlight = false;
+		repaint();
 	}
 
 }
