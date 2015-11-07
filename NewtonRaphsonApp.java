@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.geom.*;
+import java.io.*;
+
 
 
 /**
@@ -13,6 +17,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 	
 	private JPanel buttonPanel;
 	private JPanel screen;
+	private static final int UPPER_BUFFER = 100;
+	private Image backgroundImg;
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
@@ -28,21 +34,28 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 	 */
 	public NewtonRaphsonApp(){
 		super("Newton Raphson Approximation Utility - Horatiu Lazu");
-		setSize(500,500);
+		setSize(475,360);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
 		
 		buttonPanel = new JPanel();
 		screen = new JPanel();
-		addButtonsToPanel();
+		//addButtonsToPanel();
 		
 		add(buttonPanel);
 		//add(screen);
 		addMenuBar();
 		
 		setVisible(true);
-		
-		
+	}
+	
+	private void drawBackground(){
+		try{
+			 backgroundImg = ImageIO.read(new File("CalculatorBackground.jpg"));
+		}
+		catch(IOException e){
+			
+		}
 	}
 	
 	/**
@@ -68,6 +81,23 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		setJMenuBar(menu);
 	}
 	
+	private void drawInterface(Graphics g){
+		Graphics2D g2d = (Graphics2D) g;
+		for(int i = 0; i < 6; i++){
+			g2d.drawLine(0,UPPER_BUFFER + i * 50, 464, UPPER_BUFFER + i * 50);
+		}
+		for(int i = 0; i < 9; i++){
+			g2d.drawLine(i * 58, UPPER_BUFFER, i * 58, 350);
+		}
+	}
+	
+	public void paint(Graphics g){
+		super.paint(g);
+		drawBackground();
+		g.drawImage(backgroundImg, 0, 100, null);
+		drawInterface(g);
+	}
+	
 	/**
 	 * This method handles all events in the program.
 	 * @param arg0 This variable stores the action command.
@@ -89,10 +119,12 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		JButton [] numPad = new JButton[10];
 		for(int i = 0; i < 10; i++)
 			numPad[i] = new JButton(Integer.toString(i));
+		numPad[0].setSize(30,30);
+		
 		
 		JButton calc = new JButton("=");
-		//calc.setSize(40,40);
-		//calc.setLocation(5,5);
+		//calc.setSize(30,30);
+		//calc.setLocation(0,5);
 		
 		JButton del = new JButton("del");
 		
@@ -143,7 +175,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener{
 		buttonPanel.revalidate();
 		repaint();
 		validate();
-		
 		
 	}
 
