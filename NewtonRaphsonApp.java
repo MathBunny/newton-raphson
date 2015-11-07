@@ -19,6 +19,12 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	private static final int UPPER_BUFFER = 100;
 	private Image backgroundImg;
 	private Image display;
+	private Image highlight;
+	
+	private boolean drawHighlight = true; //temporary
+	private int highlightX = 0;
+	private int highlightY = 0;
+	private boolean drawZero = false;
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
@@ -56,6 +62,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		try{
 			 backgroundImg = ImageIO.read(new File("CalculatorBackground.jpg"));
 			 display = ImageIO.read(new File("monitor.jpg"));
+			 highlight = ImageIO.read(new File("highlight.png"));
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
@@ -102,6 +109,19 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		}
 	}
 	
+	private void drawHighLight(Graphics g){
+		if (!drawHighlight)
+			return;
+		if (drawZero){
+			
+			
+		}
+		else{
+			g.drawImage(highlight, 58 * highlightX,  100 + 50 * highlightY,  null);
+		}
+		
+	}
+	
 	private void addButtonLabels(Graphics g){
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(new Font("Helvetica-Neue", Font.PLAIN, 16)); 
@@ -113,8 +133,11 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	public void paint(Graphics g){
 		super.paint(g);
 		fetchImages();
+		
 		g.drawImage(backgroundImg, 0, 100, null);
 		g.drawImage(display,  0,  44,  490,  57,  null);
+		
+		drawHighLight(g);
 		drawInterface(g);
 		addButtonLabels(g);
 	}
@@ -202,7 +225,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO: Add blue animation
-		
 		int x = arg0.getX();
 		int y = arg0.getY();
 		
