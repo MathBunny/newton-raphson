@@ -13,15 +13,16 @@ import java.io.*;
  * @version 1.0.0.0
  */
 
+@SuppressWarnings("serial")
 public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseListener{
 	private JPanel buttonPanel;
-	private JPanel screen;
 	private static final int UPPER_BUFFER = 100;
 	private Image backgroundImg;
 	private Image display;
 	private Image highlight;
 	private Image displayInitialize;
 	private Image displayOff;
+	private Image maxChar;
 	
 	private boolean drawHighlight = false; //temporary
 	private int highlightX = 0;
@@ -60,7 +61,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		setResizable(false);
 		
 		buttonPanel = new JPanel();
-		screen = new JPanel();
+		//screen = new JPanel();
 		//addButtonsToPanel();
 		
 		add(buttonPanel);
@@ -82,6 +83,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			 highlight = ImageIO.read(new File("highlight.png"));
 			 displayInitialize = ImageIO.read(new File("initializing.jpg"));
 			 displayOff = ImageIO.read(new File("off.jpg"));
+			 maxChar = ImageIO.read(new File("monitor_max.jpg"));
 		}
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
@@ -151,8 +153,12 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		fetchImages();
 		
 		g.drawImage(backgroundImg, 0, 100, null);
-		if (!turnedOff && !turnedOn && !off)
-			g.drawImage(display,  0,  44,  490,  57,  null);
+		if (!turnedOff && !turnedOn && !off){
+			if (command.length() <= 18)
+				g.drawImage(display,  0,  44,  490,  57,  null);
+			else
+				g.drawImage(maxChar, 0, 44, 490, 57, null);
+		}
 		else if (turnedOn){
 			off=false;
 			command = "";
@@ -268,8 +274,9 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	public void mouseExited(MouseEvent arg0) {}
 
 	private void updateCommand(int x, int y){
+		
 		if (x == 0 && y == 0){
-			command += "x";
+			command += "X";
 		}
 		// TODO Add restrictions on when you press certain buttons.
 		if (x == 0 && y == 1) //add restriction...
@@ -280,6 +287,132 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		
 		if (x == 0 && y == 3)
 			command += "^4";
+		
+		if (x == 0 && y == 4)
+			command += "^5";
+		
+		if (x == 1 && y == 0){
+			command += "ln(";
+		}
+		
+		if (x == 1 && y == 1){
+			command += "log10(";
+		}
+		
+		if (x == 1 && y == 2){
+			command += "Ã";
+		}
+		
+		if (x == 1 && y == 3){
+			command += "3Ã";
+		}
+		
+		if (x == 1 && y == 4){
+			command += "4Ã";
+		}
+		
+		if (x == 2 && y == 0){
+			command += "sin(";
+		}
+		
+		if (x == 2 && y == 1){
+			command += "cos(";
+		}
+		
+		if (x == 2 && y == 2){
+			command += "tan(";
+		}
+		
+		if (x == 2 && y == 3){
+			command += "(";
+		}
+		
+		if (x == 2 && y == 4){
+			command += ")";
+		}
+		
+		if (x == 3 && y == 0){
+			command += "sinh(";
+		}
+		
+		if (x == 3 && y == 1){
+			command += "cosh(";
+		}
+		
+		if (x == 3 && y == 2){
+			command += "tanh(";
+		}
+		
+		if (x == 3 && y == 3){
+			command += "^";
+		}
+		
+		if (x == 3 && y == 4){
+			JOptionPane.showMessageDialog(this,
+				    "Notice: Decimals are not supported in this version!",
+				    "Notice: Unsupported Operation",
+				    JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		if (x == 4 && y == 1){
+			command += "7";
+		}
+		
+		if (x == 4 && y == 2){
+			command += "4";
+		}
+		
+		if (x == 4 && y == 3){
+			command += "1";
+		}
+		
+		if (y == 4 && (x == 4 || x == 5 || x == 6)){
+			command += "0";
+		}
+		
+		if (x == 5 && y == 1){
+			command += "8";
+		}
+		
+		if  (x == 5 && y == 2){
+			command += "5";
+		}
+		
+		if (x == 5 && y == 3){
+			command += "2";
+		}
+		
+		if (x == 6 && y == 1){
+			command += "9";
+		}
+		
+		if (x == 6 && y == 2){
+			command += "6";
+		}
+		
+		if (x == 6 && y == 3){
+			command += "3";
+		}
+		
+		if (x == 7 && y == 0){
+			command += "Ö";
+		}
+		
+		if (x == 7 && y == 1){
+			command += "x";
+		}
+		
+		if (x == 7 && y == 3){
+			command += "+";
+		}
+		
+		if (x == 7 && y == 2){
+			command += "-";
+		}
+		
+		
+		
 	}
 	
 	private void calculate(){
@@ -348,7 +481,9 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			command = "";
 			repaint();
 		}
-		
+		if (command.length() > 18){
+			return;
+		}
 		updateCommand(x, y);
 		repaint();
 		
