@@ -46,7 +46,6 @@ public class About extends JFrame implements ActionListener{
 		catch(IOException e){
 			JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
 		}
-		
 	}
 	
 	public void paint(Graphics g){

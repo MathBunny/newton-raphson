@@ -29,6 +29,9 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	private boolean drawZero = false;
 	private boolean turnedOn = false;
 	private boolean turnedOff = true;
+	private boolean off = true;
+	
+	private String command = "";
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
@@ -36,6 +39,15 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	 */
 	public static void main(String[] args) {
 		new NewtonRaphsonApp();
+	}
+	
+	/**
+	 * This method returns the command.
+	 * @return String The command.
+	 */
+	
+	public String getCommand(){
+		return command;
 	}
 	
 	/**
@@ -127,27 +139,39 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	}
 	
 	
+	private void updateScreen(Graphics g){
+		g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+		g.setColor(Color.white);
+		g.drawString(command, 113, 85);
+	}
+	
+	
 	public void paint(Graphics g){
 		super.paint(g);
 		fetchImages();
 		
 		g.drawImage(backgroundImg, 0, 100, null);
-		if (!turnedOff && !turnedOn)
+		if (!turnedOff && !turnedOn && !off)
 			g.drawImage(display,  0,  44,  490,  57,  null);
 		else if (turnedOn){
+			off=false;
+			command = "";
 			g.drawImage(displayInitialize, 0, 44, 490, 57, null);
 			try{
-				Thread.sleep(1000);
+				Thread.sleep(50);
 			}
 			catch(Exception e){}
 			g.drawImage(display,  0,  44,  490,  57,  null);
 		}
 		else{
+			off = true;
 			g.drawImage(displayOff, 0, 44, 490, 57, null);
+			command = "";
 		}
 		
 		drawHighLight(g);
 		drawInterface(g);
+		updateScreen(g);
 	}
 	
 	/**
@@ -243,6 +267,44 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	@Override
 	public void mouseExited(MouseEvent arg0) {}
 
+	private void updateCommand(int x, int y){
+		if (x == 0 && y == 0){
+			command += "x";
+		}
+		// TODO Add restrictions on when you press certain buttons.
+		if (x == 0 && y == 1) //add restriction...
+			command += "^2";
+		
+		if (x == 0 && y == 2)
+			command += "^3";
+		
+		if (x == 0 && y == 3)
+			command += "^4";
+	}
+	
+	private void calculate(){
+		if (command.equals("")){
+			JOptionPane.showMessageDialog(this,
+				    "Fatal Error: You cannot calculate without inputting an equation!",
+				    "Fatal Error: Invalid Input",
+				    JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		int x = JOptionPane.showConfirmDialog(
+			    this,
+			    "Do you already have a predefined x value that you wish to begin approximation with?\nNotice: If the slope of the tangent at the given point is zero, then the approximation will not work.",
+			    "Do you have a predefined x value?",
+			    JOptionPane.YES_NO_OPTION);
+		if (x == 0)
+			System.out.println("Yes");
+		else if (x == 1)
+			System.out.println("No");
+		else
+			return;
+		
+	}
+	
+	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO: Make this code more KISS?
@@ -274,6 +336,20 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			drawZero = false;
 		highlightX = x;
 		highlightY = y;
+		if (off)
+			return;
+		
+		if (x == 7 && y == 4){ //calculate button
+			calculate();
+			return; //return?
+		}
+		
+		if (x == 6 && y == 0){
+			command = "";
+			repaint();
+		}
+		
+		updateCommand(x, y);
 		repaint();
 		
 	}
