@@ -32,7 +32,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	private boolean turnedOff = true;
 	private boolean off = true;
 	
-	private String command = "";
+	private static String command = "";
 	
 	/**
 	 * The purpose of this method is to start the program, as this is the main method.
@@ -47,7 +47,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	 * @return String The command.
 	 */
 	
-	public String getCommand(){
+	public static String getCommand(){
 		return command;
 	}
 	
@@ -428,10 +428,14 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			    "Do you already have a predefined x value that you wish to begin approximation with?\nNotice: If the slope of the tangent at the given point is zero, then the approximation will not work.",
 			    "Do you have a predefined x value?",
 			    JOptionPane.YES_NO_OPTION);
-		if (x == 0)
+		if (x == 0){
 			System.out.println("Yes");
-		else if (x == 1)
+			new StartValueSelection(true);
+		}
+		else if (x == 1){
 			System.out.println("No");
+			new StartValueSelection(false);
+		}
 		else
 			return;
 		
@@ -479,7 +483,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		
 		if (x == 6 && y == 0){
 			command = "";
-			repaint();
+			//repaint();
 		}
 		if (command.length() > 18){
 			return;
