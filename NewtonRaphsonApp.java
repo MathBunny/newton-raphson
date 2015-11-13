@@ -304,11 +304,21 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		}
 		
 		if (x == 1 && y == 3){
-			command += "3Ã";
+			//command += "3Ã"; //not ideal...
+			JOptionPane.showMessageDialog(this,
+				    "Notice: This operation is not supported in this version! You may use an exponent to the power of 1/3 instead.",
+				    "Notice: Unsupported Operation",
+				    JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 		if (x == 1 && y == 4){
-			command += "4Ã";
+			//command += "4Ã";
+			JOptionPane.showMessageDialog(this,
+				    "Notice: This operation is not supported in this version! You may use an exponent to the power of 1/4 instead.",
+				    "Notice: Unsupported Operation",
+				    JOptionPane.ERROR_MESSAGE);
+			return;
 		}
 		
 		if (x == 2 && y == 0){
@@ -344,7 +354,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		}
 		
 		if (x == 3 && y == 3){
-			command += "^";
+			command += "^(";
 		}
 		
 		if (x == 3 && y == 4){
@@ -411,11 +421,37 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			command += "-";
 		}
 		
-		
+		verifyCommandValidity(false);
 		
 	}
 	
+	private void removeLastOperation(){
+		command = command.substring(0, command.length()-1);
+	}
+	
+	private boolean verifyCommandValidity(boolean isFinal){
+		if (!InputVerification.hasBalancedBrackets(command, isFinal)){
+			JOptionPane.showMessageDialog(this,
+				    "Fatal Error: You have invalid bracket proportions!",
+				    "Fatal Error: Invalid Input",
+				    JOptionPane.ERROR_MESSAGE);
+			removeLastOperation();
+			return false;
+		}
+		if (!InputVerification.hasRepeatedInvalidOperators(command)){
+			JOptionPane.showMessageDialog(this,
+				    "Fatal Error: Invalid Input! You cannot have repeated / invalid operators.",
+				    "Fatal Error: Invalid Input",
+				    JOptionPane.ERROR_MESSAGE);
+			removeLastOperation();
+			return false;
+		}
+		return true;
+	}
+	
 	private void calculate(){
+		if (!verifyCommandValidity(true))
+			return;
 		if (command.equals("")){
 			JOptionPane.showMessageDialog(this,
 				    "Fatal Error: You cannot calculate without inputting an equation!",
