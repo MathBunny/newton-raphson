@@ -6,7 +6,19 @@
  */
 public class InputVerification {
 	
+	public static int countCharacter (String input, char character){
+		int returnVal = 0;
+		for(int i = 0; i < input.length(); i++)
+			if (input.charAt(i) == character)
+				returnVal++;
+		return returnVal;
+	}
 	
+	public static boolean isValidExponent(String input){
+		if (countCharacter(input, '(') >= countCharacter(input, ')'))
+			return true;
+		return false;
+	}
 	
 	public static boolean hasBalancedBrackets(String input, boolean isFinal){
 		int openCount = 0;

@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class StartValueSelection extends JFrame{
 	
-	
 	public StartValueSelection(boolean providedInitial){
 		super("Commencing Values (Newton Raphson) - Horatiu Lazu");
 		setResizable(false);

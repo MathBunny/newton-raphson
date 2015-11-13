@@ -196,6 +196,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	/**
 	 * This method adds all of the buttons to the JPanel, so that they can be used by the user.
 	 */
+	@SuppressWarnings("unused")
 	private void addButtonsToPanel(){
 		//buttonPanel.setLayout(null);
 		//JLabel hi = new JLabel("Hello World)");
@@ -263,9 +264,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {}
@@ -279,18 +278,37 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 			command += "X";
 		}
 		// TODO Add restrictions on when you press certain buttons.
+		// TODO Convert to 2D String map for operations 
 		if (x == 0 && y == 1) //add restriction...
-			command += "^2";
+			command += ")^2";
 		
 		if (x == 0 && y == 2)
-			command += "^3";
+			command += ")^3";
 		
 		if (x == 0 && y == 3)
-			command += "^4";
+			command += ")^4";
 		
 		if (x == 0 && y == 4)
-			command += "^5";
+			command += ")^5";
 		
+		if (x == 0 && (y > 0)){ // TODO use last operation method
+			if (!InputVerification.isValidExponent(command)){
+				JOptionPane.showMessageDialog(this,
+					    "Notice: You cannot apply an exponential function without an expression enclosed in brackets.",
+					    "Notice: Invalid Operation",
+					    JOptionPane.ERROR_MESSAGE);
+				command = command.substring(0, command.length()-3);
+				return;
+			}
+			if (!InputVerification.hasRepeatedInvalidOperators(command)){
+				JOptionPane.showMessageDialog(this,
+					    "Fatal Error: Invalid Input! You cannot have repeated / invalid operators.",
+					    "Fatal Error: Invalid Input",
+					    JOptionPane.ERROR_MESSAGE);
+				command = command.substring(0, command.length() -3);
+				return;
+			}
+		}
 		if (x == 1 && y == 0){
 			command += "ln(";
 		}
@@ -424,6 +442,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 		verifyCommandValidity(false);
 		
 	}
+	
 	
 	private void removeLastOperation(){
 		command = command.substring(0, command.length()-1);
