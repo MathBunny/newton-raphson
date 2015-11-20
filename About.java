@@ -5,7 +5,11 @@ import java.awt.event.*;
 import java.awt.*;
 import java.awt.geom.*;
 import java.io.*;
-
+/**
+ * The purpose of this class is to show an about box.
+ * @author Horatiu Lazu
+ * @version 1.0.0.0
+ */
 
 public class About extends JFrame implements ActionListener{
 	private Image background;

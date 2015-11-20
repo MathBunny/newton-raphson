@@ -1,7 +1,7 @@
 
 /**
  * This class verifies the input
- * @author horatiulazu
+ * @author Horatiu Lazu
  * @version 1.0.0.0
  */
 public class InputVerification {

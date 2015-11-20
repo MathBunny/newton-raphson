@@ -115,7 +115,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
 	
 	/**
 	 * This method draws the interface with the grid-like display.
-	 * @param g
+	 * @param g This is the reference variable for the graphics class.
 	 */
 	private void drawInterface(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
