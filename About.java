@@ -14,6 +14,9 @@ import java.io.*;
 public class About extends JFrame implements ActionListener{
 	private Image background;
 	
+	/**
+	 * This is the class constructor.
+	 */
 	public About(){
 		super("About Newton Raphson Approximation");
 		setSize(250, 350);
@@ -43,6 +46,9 @@ public class About extends JFrame implements ActionListener{
 		add(panel);
 	}
 	
+	/**
+	 * @throws IOException This is in case there's a file reading error. 
+	 */
 	private void fetchImage(){
 		try{
 			background = ImageIO.read(new File("About.jpg"));
