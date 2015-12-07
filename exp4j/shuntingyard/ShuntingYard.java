@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.objecthunter.exp4j.shuntingyard;
+//package net.objecthunter.exp4j.shuntingyard;
 
 import java.util.*;
 
-import net.objecthunter.exp4j.function.Function;
+/*import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.tokenizer.OperatorToken;
 import net.objecthunter.exp4j.tokenizer.Token;
-import net.objecthunter.exp4j.tokenizer.Tokenizer;
+import net.objecthunter.exp4j.tokenizer.Tokenizer;*/
 
 /**
  * Shunting yard implementation to convert infix to reverse polish notation

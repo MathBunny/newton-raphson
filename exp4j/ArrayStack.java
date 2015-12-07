@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.objecthunter.exp4j;
+//package net.objecthunter.exp4j;
 
 import java.util.EmptyStackException;
 

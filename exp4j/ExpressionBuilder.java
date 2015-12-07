@@ -14,14 +14,14 @@
  * limitations under the License. 
  */
 
-package net.objecthunter.exp4j;
+//package net.objecthunter.exp4j;
 
 import java.util.*;
 
-import net.objecthunter.exp4j.function.Function;
+/*import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
-import net.objecthunter.exp4j.shuntingyard.ShuntingYard;
+import net.objecthunter.exp4j.shuntingyard.ShuntingYard;*/
 
 /**
  * Factory class for {@link Expression} instances. This class is the main API entrypoint. Users should create new

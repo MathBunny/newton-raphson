@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License. 
 */
-package net.objecthunter.exp4j.operator;
+//package net.objecthunter.exp4j.operator;
 
 /**
  * Class representing operators that can be used in an expression
@@ -56,7 +56,7 @@ public abstract class Operator {
      * The set of allowed operator chars
      */
     public static final char[] ALLOWED_OPERATOR_CHARS = { '+', '-', '*', '/',
-            '%', '^', '!', '#', '§', '$', '&', ';', ':', '~', '<', '>', '|',
+            '%', '^', '!', '#', '$', '&', ';', ':', '~', '<', '>', '|',
             '='};
 
     protected final int numOperands;

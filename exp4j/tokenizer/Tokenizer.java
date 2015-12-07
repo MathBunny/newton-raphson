@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package net.objecthunter.exp4j.tokenizer;
+//package net.objecthunter.exp4j.tokenizer;
 
 import java.util.Map;
 import java.util.Set;
 
-import net.objecthunter.exp4j.function.Function;
+/*import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
-import net.objecthunter.exp4j.operator.Operators;
+import net.objecthunter.exp4j.operator.Operators;*/
 
 public class Tokenizer {
 
