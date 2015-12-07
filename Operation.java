@@ -10,21 +10,27 @@ import java.text.*;
 import exp4j.*;
 
 class Operation{
- private String operation = "";
+ private static String operation = "";
  
- public double operate(int value){
+ public static double operate(int value){
   Expression e = new ExpressionBuilder(operation)
-                .variables("x", "e", "pi", "¹")
+                .variables("X", "e", "pi", "¹") //uppercase...
                 .build()
-                .setVariable("x", value)
+                .setVariable("X", value)
                 .setVariable("e", Math.E)
                 .setVariable("¹", Math.PI)
                 .setVariable("pi", Math.PI);
         double result = e.evaluate();
+        System.out.println("Res: " + result);
         return result;
  }
  
- public void derive(){
+ public static void setOperation(String operation){
+   Operation.operation = operation; //sketchy/
+   
+ }
+ 
+ public static void derive(){
    
  }
 }
