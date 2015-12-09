@@ -481,10 +481,10 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
                                           "Do you already have a predefined x value that you wish to begin approximation with?\nNotice: If the slope of the tangent at the given point is zero, then the approximation will not work.",
                                           "Do you have a predefined x value?",
                                           JOptionPane.YES_NO_OPTION);
-    if (x == 0){
-      System.out.println("Yes");
+    if (x == 0){ //get the values here...
+      /*System.out.println("Yes");
       Operation.setOperation(command);//temporary!!!
-      Operation.operate(3);
+      Operation.operate(3);*/
       
       new StartValueSelection(true);
     }
