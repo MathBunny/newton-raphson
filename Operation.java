@@ -11,7 +11,8 @@ import exp4j.*;
 
 class Operation{
   private static String operation = "";
-  static final double ACCURACY = 0.0000000001;
+  static final double ACCURACY = 1e-10;
+  final static int MAX_ATTEMPTS = 500;
   static private ArrayList<Variable> constantList = new ArrayList<Variable>();
   
   
@@ -25,7 +26,7 @@ class Operation{
     }
   }
   
-  public static double operate(int value){
+  public static double operate(double value){
     Expression e = new ExpressionBuilder(operation)
       .variables("X", "e", "pi", "¹") //uppercase...
       .build()
@@ -38,20 +39,54 @@ class Operation{
     return result;
   }
   
-  /** This method computes the derivative of a function using first principles.*/
-  public static double derivative(int value){
-    Expression e = new ExpressionBuilder(operation)
-      .variables("X", "e", "pi", "¹") //uppercase...
-      .build()
-      .setVariable("X", value)
-      .setVariable("e", Math.E)
-      .setVariable("¹", Math.PI)
-      .setVariable("pi", Math.PI);
+  //guess
+  //find equation of tangent line 
+  
+  public static double compute(int value, int guess){
+    final double ACCEPTABLE_CHANGE = ACCURACY;
+    final double ACCEPTABLE_HORIZONTAL_SLOPE = ACCURACY;
+    double x = guess;
+    double newX;
     
-    double firstVal = e.evaluate();
-    double secondVal = ((e.setVariable("X", value)).evaluate());
-    double dx = ((secondVal - firstVal)/(ACCURACY));
-    return dx;
+    for(int o = 0; o < MAX_ATTEMPTS; o++){
+      double y = operate(x);
+      double slope = derivative(x);
+      if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
+        System.out.println("INFINITE SLOPE!");
+        return Integer.MAX_VALUE;
+      }
+      newX = (x-(y/slope));
+      if (Math.abs(newX-x) < ACCEPTABLE_CHANGE){
+        System.out.println("FOUND!");
+        return newX;
+      }
+      x = newX;
+    }
+    System.out.println("Could not find any solution!");
+    return Integer.MAX_VALUE; //could not find!
+
+  }
+  
+  /** This method computes the derivative of a function using first principles.*/
+  public static double derivative(double value){
+    try{
+      Expression e = new ExpressionBuilder(operation)
+        .variables("X", "e", "pi", "¹") //uppercase...
+        .build()
+        .setVariable("X", value)
+        .setVariable("e", Math.E)
+        .setVariable("¹", Math.PI)
+        .setVariable("pi", Math.PI);
+      double firstVal = e.evaluate();
+      double secondVal = ((e.setVariable("X", value + ACCURACY)).evaluate());
+      double dx = ((secondVal - firstVal)/(ACCURACY));
+      return dx;
+    }
+    catch(IllegalArgumentException e){
+      System.out.println(e);
+    }
+    return -1; //error!
+    
   }
   
   
@@ -60,6 +95,6 @@ class Operation{
     Operation.operation = operation; //sketchy/
     
   }
- 
+  
   
 }

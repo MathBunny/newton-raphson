@@ -1,12 +1,16 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.imageio.ImageIO;
+import java.awt.event.*;
+import java.awt.*;
+import java.io.*;
 
 
 @SuppressWarnings("serial")
 public class StartValueSelection extends JFrame implements ActionListener{
   JTable panel = new JTable();
-    
+  Image backgroundImg;
     
   public StartValueSelection(boolean providedInitial){
     super("Commencing Values (Newton Raphson) - Horatiu Lazu");
@@ -53,6 +57,28 @@ public class StartValueSelection extends JFrame implements ActionListener{
     
     setSize(500, 500);
     setVisible(true);
+  }
+  
+  public void drawHighlight(Graphics g){
+    
+    
+  }
+  
+  public void fetchImage(){
+    try{
+      backgroundImg = ImageIO.read(new File("StartStopValue.png"));
+    }
+    catch(IOException e){
+      JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
+    }
+  }
+  
+  public void paint(Graphics g){
+    super.paint(g);
+    fetchImage();
+    
+    g.drawImage(backgroundImg, 0, 100, null);
+    drawHighlight(g);
   }
   
   private void identifyStartingValue(){
