@@ -42,7 +42,7 @@ class Operation{
   //guess
   //find equation of tangent line 
   
-  public static double compute(int value, int guess){
+  public static double compute(double guess){
     final double ACCEPTABLE_CHANGE = ACCURACY;
     final double ACCEPTABLE_HORIZONTAL_SLOPE = ACCURACY;
     double x = guess;
