@@ -5,6 +5,7 @@ import javax.imageio.ImageIO;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import java.text.*;
 
 
 @SuppressWarnings("serial")
@@ -12,6 +13,8 @@ public class StartValueSelection extends JFrame implements MouseListener{
   JTable panel = new JTable();
   Image backgroundImg;
   double guess;
+  double ans = Integer.MAX_VALUE;
+  int iterations = Integer.MAX_VALUE;
   
   public StartValueSelection(boolean providedInitial){
     super("Commencing Values (Newton Raphson) - Horatiu Lazu");
@@ -38,6 +41,10 @@ public class StartValueSelection extends JFrame implements MouseListener{
     while(true){
       String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
       try{
+        if (s == null){
+           setVisible(false);
+           return;
+        }
         guess = Double.parseDouble(s);
         Operation.setOperation(NewtonRaphsonApp.getCommand());
         if (Operation.derivative(guess) <= Operation.ACCURACY){
@@ -46,7 +53,12 @@ public class StartValueSelection extends JFrame implements MouseListener{
           break;
       }
       catch(NumberFormatException e){
+        
         JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
+      }
+      catch(NullPointerException e){
+        setVisible(false);
+        return;
       }
     }
     
@@ -68,7 +80,14 @@ public class StartValueSelection extends JFrame implements MouseListener{
   
   public void compute(){
     Operation.setOperation(NewtonRaphsonApp.getCommand());
-    JOptionPane.showMessageDialog(this, (Operation.compute(guess) + " = ANSWER!"));
+    ans = Operation.compute(guess);
+    
+    if (ans == Integer.MAX_VALUE){
+      JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
+    }
+    else{
+      JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (Operation.compute(guess)));
+    }
   }
   
   public void fetchImage(){
@@ -80,12 +99,36 @@ public class StartValueSelection extends JFrame implements MouseListener{
     }
   }
   
+  
+  
+  public void drawText(Graphics g){
+    g.setFont(new Font("Helvetica", Font.PLAIN, 30));
+    g.setColor(Color.white);
+    DecimalFormat dF = new DecimalFormat("0.00000000");
+    g.drawString((ans == Integer.MAX_VALUE) ? ("Unknown") : (dF.format(ans)), 255, 103);
+    g.drawString(guess+ "", 255, 148);
+    
+    Operation.setOperation(NewtonRaphsonApp.getCommand());
+    dF = new DecimalFormat("0.000000");
+    g.drawString(dF.format(Operation.derivative(guess)), 338, 57);
+    
+    g.drawString((iterations == Integer.MAX_VALUE) ? ("Unknown") : (iterations + ""), 255, 192);
+    
+    //g.setFont(new Font("Helvetica", Font.PLAIN, 20));
+    if (NewtonRaphsonApp.getCommand().length() > 10)
+      g.drawString((NewtonRaphsonApp.getCommand()+ "").substring(0, 10), 80, 57);
+    else
+      g.drawString((NewtonRaphsonApp.getCommand()+ ""), 80, 57);
+    
+  }
+  
   public void paint(Graphics g){
     super.paint(g);
     fetchImage();
     
     g.drawImage(backgroundImg, 0, 0, null);
     drawHighlight(g);
+    drawText(g);
   }
   
   private void identifyStartingValue(){

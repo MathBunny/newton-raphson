@@ -308,7 +308,11 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       }
     }
     if (x == 1 && y == 0){
-      command += "ln(";
+      JOptionPane.showMessageDialog(this,
+                                    "Notice: This operation is not supported in this version!",
+                                    "Notice: Unsupported Operation",
+                                    JOptionPane.ERROR_MESSAGE);
+      //command += "ln(";
     }
     
     if (x == 1 && y == 1){
