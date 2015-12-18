@@ -483,24 +483,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
                                     JOptionPane.ERROR_MESSAGE);
       return;
     }
-    int x = JOptionPane.showConfirmDialog(
-                                          this,
-                                          "Do you already have a predefined x value that you wish to begin approximation with?\nNotice: If the slope of the tangent at the given point is zero, then the approximation will not work.",
-                                          "Do you have a predefined x value?",
-                                          JOptionPane.YES_NO_OPTION);
-    if (x == 0){ //get the values here...
-      /*System.out.println("Yes");
-      Operation.setOperation(command);//temporary!!!
-      Operation.operate(3);*/
-      
-      new StartValueSelection(true);
-    }
-    else if (x == 1){
-      System.out.println("No");
-      new StartValueSelection(false);
-    }
-    else
-      return;
+
+    new StartValueSelection();
     
   }
   
@@ -513,7 +497,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     //x = x / 58;
     //y = (y - 100)/50;
     
-    System.out.println("Mouse Pressed: (" + x + "," + y + ")");
+    //System.out.println("Mouse Pressed: (" + x + "," + y + ")");
     if (x < 0 || x > 7 || y < 0 || y > 4)
       return;
     if (x == 4 && y == 0){

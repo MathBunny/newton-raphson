@@ -16,15 +16,12 @@ public class StartValueSelection extends JFrame implements MouseListener{
   double ans = Integer.MAX_VALUE;
   static int iterations = Integer.MAX_VALUE;
   
-  public StartValueSelection(boolean providedInitial){
+  public StartValueSelection(){
     super("Commencing Values (Newton Raphson) - Horatiu Lazu");
     addMouseListener(this);
     setResizable(false);
     
-    if (providedInitial)
-      useGivenValue();
-    else
-      identifyStartingValue();
+    useGivenValue();
   }
   
   /** This method sets up the JFrame for finding the root based off of a starting value. */
@@ -122,7 +119,7 @@ public class StartValueSelection extends JFrame implements MouseListener{
   }
   
   
-  
+  /** The following draws the text in the StartValueSelection. */
   public void drawText(Graphics g){
     g.setFont(new Font("Helvetica", Font.PLAIN, 30));
     g.setColor(Color.white);

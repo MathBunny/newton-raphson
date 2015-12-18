@@ -52,14 +52,23 @@ class Operation{
     for(int o = 0; o < MAX_ATTEMPTS; o++){
       double y = operate(x);
       double slope = derivative(x);
-      if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
-        System.out.println("INFINITE SLOPE!");
-        return Integer.MAX_VALUE;
-      }
+      /*
+       * if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
+           System.out.println("INFINITE SLOPE!");
+           return Integer.MAX_VALUE;
+        }
+       * 
+       * 
+       * */
+      
       newX = (x-(y/slope));
       if (Math.abs(newX-x) < ACCEPTABLE_CHANGE){
         System.out.println("FOUND!");
         return newX;
+      }
+      if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
+        System.out.println("INFINITE SLOPE!");
+        return Integer.MAX_VALUE;
       }
       x = newX;
       StartValueSelection.iterations++;
