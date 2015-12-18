@@ -14,7 +14,7 @@ public class StartValueSelection extends JFrame implements MouseListener{
   Image backgroundImg;
   double guess;
   double ans = Integer.MAX_VALUE;
-  int iterations = Integer.MAX_VALUE;
+  static int iterations = Integer.MAX_VALUE;
   
   public StartValueSelection(boolean providedInitial){
     super("Commencing Values (Newton Raphson) - Horatiu Lazu");
@@ -73,8 +73,30 @@ public class StartValueSelection extends JFrame implements MouseListener{
     
   }
   
-  public void nextIteration(){
-    JOptionPane.showMessageDialog(this, "This feature is coming soon!");
+  public void adjustGuess(){
+     while(true){
+      String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
+      try{
+        if (s == null){
+           setVisible(false);
+           return;
+        }
+        guess = Double.parseDouble(s);
+        Operation.setOperation(NewtonRaphsonApp.getCommand());
+        if (Operation.derivative(guess) <= Operation.ACCURACY){
+          JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
+        }else
+          break;
+      }
+      catch(NumberFormatException e){
+        
+        JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
+      }
+      catch(NullPointerException e){
+        setVisible(false);
+        return;
+      }
+    }
     
   }
   
@@ -154,7 +176,7 @@ public class StartValueSelection extends JFrame implements MouseListener{
     int y = e.getY();
     if (x >= 11 && x <= 186 && y >= 220 && y <= 284){
       System.out.println("left button");
-      nextIteration();
+      adjustGuess();
     }
     else if (x >= 220 && x <= 395 && y >= 220 && y <=284){
       System.out.println("middle button");

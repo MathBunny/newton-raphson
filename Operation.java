@@ -12,7 +12,7 @@ import exp4j.*;
 class Operation{
   private static String operation = "";
   static final double ACCURACY = 1e-10;
-  final static int MAX_ATTEMPTS = 500;
+  final static int MAX_ATTEMPTS = 1000;
   static private ArrayList<Variable> constantList = new ArrayList<Variable>();
   
   
@@ -48,6 +48,7 @@ class Operation{
     double x = guess;
     double newX;
     
+    StartValueSelection.iterations = 0;
     for(int o = 0; o < MAX_ATTEMPTS; o++){
       double y = operate(x);
       double slope = derivative(x);
@@ -61,6 +62,7 @@ class Operation{
         return newX;
       }
       x = newX;
+      StartValueSelection.iterations++;
     }
     System.out.println("Could not find any solution!");
     return Integer.MAX_VALUE; //could not find!
