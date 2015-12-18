@@ -426,7 +426,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     }
     
     if (x == 7 && y == 0){
-      command += "Ö";
+      //command += "Ö";
+      command += "/";
     }
     
     if (x == 7 && y == 1){
@@ -436,7 +437,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     
     if (x == 7 && y == 3){
       //command += "+";
-      command += "/";
+      command += "+";
     }
     
     if (x == 7 && y == 2){
