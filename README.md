@@ -5,7 +5,8 @@
 * Find the root for _any_ expression using Newton's method
 * Uses exp4j to evaluate expressions (reverse Polish notation)
 
-It's important to note that > Newton's method of approximation does not work if the slope of tangency is zero at the guess, nor does it identify if there's multiple roots
+It's important to note that 
+> Newton's method of approximation does not work if the slope of tangency is zero at the guess, nor does it identify if there's multiple roots
 
 ###Features:
 * Nice interface to input equation
