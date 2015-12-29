@@ -35,7 +35,7 @@ class Operation{
       .setVariable("¹", Math.PI)
       .setVariable("pi", Math.PI);
     double result = e.evaluate();
-    System.out.println("Res: " + result);
+    //System.out.println("Res: " + result);
     return result;
   }
   
