@@ -1,5 +1,5 @@
 ##Newton-Raphson Approximation Program
-###Developed by: Horatiu Lazu
+###Developed by: Horatiu Lazu (c) 2016
 
 ###Purpose / Design:
 * Find the root for _any_ expression using Newton's method
