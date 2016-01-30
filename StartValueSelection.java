@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.imageio.ImageIO;
 import java.awt.event.*;
 import java.awt.*;

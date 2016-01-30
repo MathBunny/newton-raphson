@@ -1,12 +1,4 @@
-/* Programming Competition - Template (Horatiu Lazu) */
-
-import java.io.*;
 import java.util.*;
-import java.lang.*;
-import java.awt.*;
-import java.awt.geom.*;
-import java.math.*;
-import java.text.*;
 import exp4j.*;
 
 class Operation{
