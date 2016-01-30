@@ -1,5 +1,5 @@
 ##Newton-Raphson Approximation Program
-###Developed by: Horatiu Lazu (c) 2016
+###Developed by: Horatiu Lazu
 
 ###Purpose / Design:
 * Find the root for _any_ expression using Newton's method
@@ -25,7 +25,7 @@ It's important to note that:
 * Include option to automatically identify roots
 
 ####Screenshot:
-![Screenshot](http://software.horatiulazu.paperplane.io/NewtonScreenshot.png "Screenshot")
+![Screenshot](http://software.horatiulazu.paperplane.io/NewtonScreenshot2.png "Screenshot")
 
 
 
