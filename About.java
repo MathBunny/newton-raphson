@@ -51,7 +51,7 @@ public class About extends JFrame implements ActionListener{
    */
   private void fetchImage(){
     try{
-      background = ImageIO.read(new File("About.jpg"));
+      background = ImageIO.read(new File("images/About.jpg"));
     }
     catch(IOException e){
       JOptionPane.showMessageDialog(this, "Error: Could not find About screen background image!");

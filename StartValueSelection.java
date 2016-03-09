@@ -109,7 +109,7 @@ public class StartValueSelection extends JFrame implements MouseListener{
   
   public void fetchImage(){
     try{
-      backgroundImg = ImageIO.read(new File("StartStopValue.png"));
+      backgroundImg = ImageIO.read(new File("images/StartStopValue.png"));
     }
     catch(IOException e){
       JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
