@@ -155,8 +155,6 @@ public class StartValueSelection extends JFrame implements MouseListener{
   }
   
   public void mousePressed(MouseEvent e) {
-    //System.out.println(e.getX() + " " + e.getY());
-    
   }
   
   public void mouseReleased(MouseEvent arg0) {

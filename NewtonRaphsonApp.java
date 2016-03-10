@@ -82,7 +82,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       maxChar = ImageIO.read(new File("images/monitor_max.jpg"));
     }
     catch(IOException e){
-      JOptionPane.showMessageDialog(this, "Error: Could not find the image file!");
+      JOptionPane.showMessageDialog(this, "Error: Could not find required image files!");
     }
   }
   
@@ -382,6 +382,10 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     command = command.substring(0, command.length()-1);
   }
   
+  /** This method calculates the validity of a command.
+    * @param isFinal boolean This determines if it is the final computation (in which case different things need to be verified, for example appropriate closing brackets)
+    * @return boolean This determines if it is valid.
+    */
   private boolean verifyCommandValidity(boolean isFinal){
     if (!InputVerification.hasBalancedBrackets(command, isFinal)){
       JOptionPane.showMessageDialog(this,
@@ -421,7 +425,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   @Override
   public void mousePressed(MouseEvent arg0) {
     // TODO: Make this code more KISS?
-    int x = arg0.getX() /58;
+    int x = arg0.getX() / 58;
     int y = (arg0.getY() -100) / 50;
     //x = x / 58;
     //y = (y - 100)/50;
