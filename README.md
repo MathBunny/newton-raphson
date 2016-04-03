@@ -25,7 +25,7 @@ It's important to note that:
 * Include option to automatically identify roots
 
 ####Screenshot:
-![Screenshot](http://software.horatiulazu.paperplane.io/NewtonScreenshot2.png "Screenshot")
+![Screenshot](http://horatiulazu.ca/software/images/NewtonRaphson.png "Screenshot")
 
 
 
