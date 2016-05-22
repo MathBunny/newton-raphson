@@ -4,30 +4,44 @@ import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
 
-/**
- * @author Horatiu Lazu
- * @version 1.0.0.0
- */
+/** This class acts as the runner and allows the user to enter equation information.
+  * @author Horatiu Lazu
+  * @version 1.0.0.0
+  */
 
 @SuppressWarnings("serial")
 public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseListener{
+  /** buttonPanel JPanel Stores the calculator */
   private JPanel buttonPanel;
+  /** UPPER_BUFFER int This is the gap from the screen and calculator buttons */
   private static final int UPPER_BUFFER = 100;
+  /** backgroundImg Image This is the background image file */
   private Image backgroundImg;
+  /** display Image This is the background image file for the calculator screen */
   private Image display;
+  /** highlight Image This is the highlight for the calculator buttons */
   private Image highlight;
+  /** displayInitialize Image This is the display initialization screen */
   private Image displayInitialize;
+  /** displayOff Image This is the image shown when the program is off */
   private Image displayOff;
+  /** maxChar Image This is the maximum character exceeded image */
   private Image maxChar;
-  
+  /** drawHighlight boolean This stores if the highlight should be drawn */
   private boolean drawHighlight = false; //temporary
+  /** highlightX int This stores the x coordinate of the past hightlight */
   private int highlightX = 0;
+  /** highlightY int This stores the y coordinate of the past highlight */
   private int highlightY = 0;
+  /** drawzero boolean This stores if the zero button should be highlighted */
   private boolean drawZero = false;
+  /** turnedOn boolean This stores if the calculator is turned on */
   private boolean turnedOn = false;
+  /** turnedOff boolean This stores if the calculator's current paused state is off */
   private boolean turnedOff = true;
+  /** off boolean This stores if the calculator was ever on */
   private boolean off = true;
-  
+  /** command String This stores the current selected command */
   private static String command = "";
   
   /**
@@ -57,11 +71,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     setResizable(false);
     
     buttonPanel = new JPanel();
-    //screen = new JPanel();
-    //addButtonsToPanel();
-    
     add(buttonPanel);
-    //add(screen);
     addMenuBar();
     
     addMouseListener(this);
@@ -125,6 +135,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     }
   }
   
+  /** This method draws the hightlights
+    * @param g Graphics This object is a reference variable for the form's graphcis */
   private void drawHighLight(Graphics g){
     if (!drawHighlight)
       return;
@@ -136,6 +148,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     }
   }
   
+  /** This method updates the screen's text.
+    * @param g Graphics This is the graphics reference variable */
   
   private void updateScreen(Graphics g){
     g.setFont(new Font("Helvetica", Font.PLAIN, 30));
@@ -143,7 +157,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     g.drawString(command, 113, 85);
   }
   
-  
+  /** This method paints the screen of the calculator.
+    * @param g Graphics This is the graphcis reference variable */
   public void paint(Graphics g){
     super.paint(g);
     fetchImages();
@@ -190,294 +205,288 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   }
   
   
-  @Override
-  public void mouseClicked(MouseEvent arg0) {}
-  
-  @Override
-  public void mouseEntered(MouseEvent arg0) {}
-  
-  @Override
-  public void mouseExited(MouseEvent arg0) {}
-  
-  private void updateCommand(int x, int y){
+  /** This method is for when the mouse is clicked.
+    @param arg0 This is a MouseEvent reference variable */
+    @Override
+    public void mouseClicked(MouseEvent arg0) {}
     
-    if (x == 0 && y == 0){
-      command += "X";
+    /** This method is for when the mouse is entered.
+      * @param arg0 This is a MouseEvent reference variable */
+    @Override
+    public void mouseEntered(MouseEvent arg0) {}
+    
+    /** This method is for when the mouse is exited.
+      * @param arg0 MouseEvent This is a MouseEvent reference variable */
+    @Override
+    public void mouseExited(MouseEvent arg0) {}
+    
+    /** This method informs the user that a certain feature is not available. */
+    
+    private void outputNotSupported(){
+      JOptionPane.showMessageDialog(this,"Notice: This operation is not supported in this version! You may use an exponent to the power of 1/4 instead.","Notice: Unsupported Operation",JOptionPane.ERROR_MESSAGE);
     }
-    // TODO Add restrictions on when you press certain buttons.
-    // TODO Convert to 2D String map for operations 
-    if (x == 0 && y == 1) //add restriction...
-      command += ")^2";
     
-    if (x == 0 && y == 2)
-      command += ")^3";
+    /** This updates the current command demanding on where the mouse was clicked.
+      * @param x int This is the x-coordinate
+      * @param y int This is the y-coordinate */
     
-    if (x == 0 && y == 3)
-      command += ")^4";
-    
-    if (x == 0 && y == 4)
-      command += ")^5";
-    
-    if (x == 0 && (y > 0)){ // TODO use last operation method
-      if (!InputVerification.isValidExponent(command)){
-        JOptionPane.showMessageDialog(this,
-                                      "Notice: You cannot apply an exponential function without an expression enclosed in brackets.",
-                                      "Notice: Invalid Operation",
-                                      JOptionPane.ERROR_MESSAGE);
-        command = command.substring(0, command.length()-3);
+    private void updateCommand(int x, int y){
+      
+      if (x == 0 && y == 0){
+        command += "X";
+      }
+      // TODO Add restrictions on when you press certain buttons.
+      // TODO Convert to 2D String map for operations 
+      if (x == 0 && y == 1) //add restriction...
+        command += ")^2";
+      
+      if (x == 0 && y == 2)
+        command += ")^3";
+      
+      if (x == 0 && y == 3)
+        command += ")^4";
+      
+      if (x == 0 && y == 4)
+        command += ")^5";
+      
+      if (x == 0 && (y > 0)){ // TODO use last operation method
+        if (!InputVerification.isValidExponent(command)){
+          JOptionPane.showMessageDialog(this,"Notice: You cannot apply an exponential function without an expression enclosed in brackets.","Notice: Invalid Operation",JOptionPane.ERROR_MESSAGE);
+          command = command.substring(0, command.length()-3);
+          return;
+        }
+        if (!InputVerification.hasRepeatedInvalidOperators(command)){
+          JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+          command = command.substring(0, command.length() -3);
+          return;
+        }
+      }
+      if (x == 1 && y == 0){
+        outputNotSupported();
         return;
+        //command += "ln(";
+      }
+      
+      if (x == 1 && y == 1){
+        command += "log10(";
+      }
+      
+      if (x == 1 && y == 2){
+        command += "Ã";
+      }
+      
+      if (x == 1 && y == 3){
+        //command += "3Ã"; //not ideal...
+        outputNotSupported();
+        return;
+      }
+      
+      if (x == 1 && y == 4){
+        //command += "4Ã";
+        outputNotSupported();
+        return;
+      }
+      
+      if (x == 2 && y == 0){
+        command += "sin(";
+      }
+      
+      if (x == 2 && y == 1){
+        command += "cos(";
+      }
+      
+      if (x == 2 && y == 2){
+        command += "tan(";
+      }
+      
+      if (x == 2 && y == 3){
+        command += "(";
+      }
+      
+      if (x == 2 && y == 4){
+        command += ")";
+      }
+      
+      if (x == 3 && y == 0){
+        command += "sinh(";
+      }
+      
+      if (x == 3 && y == 1){
+        command += "cosh(";
+      }
+      
+      if (x == 3 && y == 2){
+        command += "tanh(";
+      }
+      
+      if (x == 3 && y == 3){
+        command += "^(";
+      }
+      
+      if (x == 3 && y == 4){
+        JOptionPane.showMessageDialog(this,
+                                      "Notice: Decimals are not supported in this version!",
+                                      "Notice: Unsupported Operation",
+                                      JOptionPane.ERROR_MESSAGE);
+        return;
+      }
+      
+      if (x == 4 && y == 1){
+        command += "7";
+      }
+      
+      if (x == 4 && y == 2){
+        command += "4";
+      }
+      
+      if (x == 4 && y == 3){
+        command += "1";
+      }
+      
+      if (y == 4 && (x == 4 || x == 5 || x == 6)){
+        command += "0";
+      }
+      
+      if (x == 5 && y == 1){
+        command += "8";
+      }
+      
+      if  (x == 5 && y == 2){
+        command += "5";
+      }
+      
+      if (x == 5 && y == 3){
+        command += "2";
+      }
+      
+      if (x == 6 && y == 1){
+        command += "9";
+      }
+      
+      if (x == 6 && y == 2){
+        command += "6";
+      }
+      
+      if (x == 6 && y == 3){
+        command += "3";
+      }
+      
+      if (x == 7 && y == 0){
+        //command += "Ö";
+        command += "/";
+      }
+      
+      if (x == 7 && y == 1){
+        //command += "x";
+        command += "*";
+      }
+      
+      if (x == 7 && y == 3){
+        //command += "+";
+        command += "+";
+      }
+      
+      if (x == 7 && y == 2){
+        command += "-";
+      }
+      
+      verifyCommandValidity(false);
+      
+    }
+    
+    /** This helper method removes the last operation */
+    private void removeLastOperation(){
+      command = command.substring(0, command.length()-1);
+    }
+    
+    /** This method calculates the validity of a command.
+      * @param isFinal boolean This determines if it is the final computation (in which case different things need to be verified, for example appropriate closing brackets)
+      * @return boolean This determines if it is valid.
+      */
+    
+    private boolean verifyCommandValidity(boolean isFinal){
+      if (!InputVerification.hasBalancedBrackets(command, isFinal)){
+        JOptionPane.showMessageDialog(this,"Fatal Error: You have invalid bracket proportions!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+        removeLastOperation();
+        return false;
       }
       if (!InputVerification.hasRepeatedInvalidOperators(command)){
-        JOptionPane.showMessageDialog(this,
-                                      "Fatal Error: Invalid Input! You cannot have repeated / invalid operators.",
-                                      "Fatal Error: Invalid Input",
-                                      JOptionPane.ERROR_MESSAGE);
-        command = command.substring(0, command.length() -3);
+        JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+        removeLastOperation();
+        return false;
+      }
+      return true;
+    }
+    
+    private void calculate(){
+      if (!verifyCommandValidity(true))
+        return;
+      if (command.equals("")){
+        JOptionPane.showMessageDialog(this,"Fatal Error: You cannot calculate without inputting an equation!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
         return;
       }
-    }
-    if (x == 1 && y == 0){
-      JOptionPane.showMessageDialog(this,
-                                    "Notice: This operation is not supported in this version!",
-                                    "Notice: Unsupported Operation",
-                                    JOptionPane.ERROR_MESSAGE);
-      //command += "ln(";
+      new StartValueSelection();
     }
     
-    if (x == 1 && y == 1){
-      command += "log10(";
+    /** This method gets the x position and y position of a click
+      * @param arg0 MouseEvent This is a MouseEvent reference variable */
+    
+    @Override
+    public void mousePressed(MouseEvent arg0) {
+      // TODO: Make this code more KISS?
+      int x = arg0.getX() / 58;
+      int y = (arg0.getY() -100) / 50;
+      //x = x / 58;
+      //y = (y - 100)/50;
+      
+      if (x < 0 || x > 7 || y < 0 || y > 4)
+        return;
+      if (x == 4 && y == 0){
+        turnedOn = true;   
+      }
+      else{
+        turnedOn = false;
+      }
+      if (x == 5 && y == 0){
+        turnedOff = true;
+      }
+      else{
+        turnedOff = false;
+      }
+      
+      drawHighlight = true;
+      if (x >=4 && x <= 6 && y == 4)
+        drawZero = true;
+      else
+        drawZero = false;
+      highlightX = x;
+      highlightY = y;
+      if (off)
+        return;
+      
+      if (x == 7 && y == 4){ //calculate button
+        calculate();
+        return; //return?
+      }
+      
+      if (x == 6 && y == 0){
+        command = "";
+      }
+      if (command.length() > 18){
+        return;
+      }
+      updateCommand(x, y);
+      repaint();
     }
     
-    if (x == 1 && y == 2){
-      command += "Ã";
+    /** This method is invoked when the mouse is released, and takes out the highlight.
+      * @param arg0 MouseEvent This is a MouseEvent reference variable */
+    
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+      // TODO: Take away the blue animation
+      drawHighlight = false;
+      repaint();
     }
     
-    if (x == 1 && y == 3){
-      //command += "3Ã"; //not ideal...
-      JOptionPane.showMessageDialog(this,
-                                    "Notice: This operation is not supported in this version! You may use an exponent to the power of 1/3 instead.",
-                                    "Notice: Unsupported Operation",
-                                    JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-    
-    if (x == 1 && y == 4){
-      //command += "4Ã";
-      JOptionPane.showMessageDialog(this,
-                                    "Notice: This operation is not supported in this version! You may use an exponent to the power of 1/4 instead.",
-                                    "Notice: Unsupported Operation",
-                                    JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-    
-    if (x == 2 && y == 0){
-      command += "sin(";
-    }
-    
-    if (x == 2 && y == 1){
-      command += "cos(";
-    }
-    
-    if (x == 2 && y == 2){
-      command += "tan(";
-    }
-    
-    if (x == 2 && y == 3){
-      command += "(";
-    }
-    
-    if (x == 2 && y == 4){
-      command += ")";
-    }
-    
-    if (x == 3 && y == 0){
-      command += "sinh(";
-    }
-    
-    if (x == 3 && y == 1){
-      command += "cosh(";
-    }
-    
-    if (x == 3 && y == 2){
-      command += "tanh(";
-    }
-    
-    if (x == 3 && y == 3){
-      command += "^(";
-    }
-    
-    if (x == 3 && y == 4){
-      JOptionPane.showMessageDialog(this,
-                                    "Notice: Decimals are not supported in this version!",
-                                    "Notice: Unsupported Operation",
-                                    JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-    
-    if (x == 4 && y == 1){
-      command += "7";
-    }
-    
-    if (x == 4 && y == 2){
-      command += "4";
-    }
-    
-    if (x == 4 && y == 3){
-      command += "1";
-    }
-    
-    if (y == 4 && (x == 4 || x == 5 || x == 6)){
-      command += "0";
-    }
-    
-    if (x == 5 && y == 1){
-      command += "8";
-    }
-    
-    if  (x == 5 && y == 2){
-      command += "5";
-    }
-    
-    if (x == 5 && y == 3){
-      command += "2";
-    }
-    
-    if (x == 6 && y == 1){
-      command += "9";
-    }
-    
-    if (x == 6 && y == 2){
-      command += "6";
-    }
-    
-    if (x == 6 && y == 3){
-      command += "3";
-    }
-    
-    if (x == 7 && y == 0){
-      //command += "Ö";
-      command += "/";
-    }
-    
-    if (x == 7 && y == 1){
-      //command += "x";
-      command += "*";
-    }
-    
-    if (x == 7 && y == 3){
-      //command += "+";
-      command += "+";
-    }
-    
-    if (x == 7 && y == 2){
-      command += "-";
-    }
-    
-    verifyCommandValidity(false);
-    
-  }
-  
-  
-  private void removeLastOperation(){
-    command = command.substring(0, command.length()-1);
-  }
-  
-  /** This method calculates the validity of a command.
-    * @param isFinal boolean This determines if it is the final computation (in which case different things need to be verified, for example appropriate closing brackets)
-    * @return boolean This determines if it is valid.
-    */
-  private boolean verifyCommandValidity(boolean isFinal){
-    if (!InputVerification.hasBalancedBrackets(command, isFinal)){
-      JOptionPane.showMessageDialog(this,
-                                    "Fatal Error: You have invalid bracket proportions!",
-                                    "Fatal Error: Invalid Input",
-                                    JOptionPane.ERROR_MESSAGE);
-      removeLastOperation();
-      return false;
-    }
-    if (!InputVerification.hasRepeatedInvalidOperators(command)){
-      JOptionPane.showMessageDialog(this,
-                                    "Fatal Error: Invalid Input! You cannot have repeated / invalid operators.",
-                                    "Fatal Error: Invalid Input",
-                                    JOptionPane.ERROR_MESSAGE);
-      removeLastOperation();
-      return false;
-    }
-    return true;
-  }
-  
-  private void calculate(){
-    if (!verifyCommandValidity(true))
-      return;
-    if (command.equals("")){
-      JOptionPane.showMessageDialog(this,
-                                    "Fatal Error: You cannot calculate without inputting an equation!",
-                                    "Fatal Error: Invalid Input",
-                                    JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-
-    new StartValueSelection();
-    
-  }
-  
-  
-  @Override
-  public void mousePressed(MouseEvent arg0) {
-    // TODO: Make this code more KISS?
-    int x = arg0.getX() / 58;
-    int y = (arg0.getY() -100) / 50;
-    //x = x / 58;
-    //y = (y - 100)/50;
-    
-    //System.out.println("Mouse Pressed: (" + x + "," + y + ")");
-    if (x < 0 || x > 7 || y < 0 || y > 4)
-      return;
-    if (x == 4 && y == 0){
-      turnedOn = true;   
-    }
-    else{
-      turnedOn = false;
-    }
-    if (x == 5 && y == 0){
-      turnedOff = true;
-    }
-    else{
-      turnedOff = false;
-    }
-    
-    drawHighlight = true;
-    if (x >=4 && x <= 6 && y == 4)
-      drawZero = true;
-    else
-      drawZero = false;
-    highlightX = x;
-    highlightY = y;
-    if (off)
-      return;
-    
-    if (x == 7 && y == 4){ //calculate button
-      calculate();
-      return; //return?
-    }
-    
-    if (x == 6 && y == 0){
-      command = "";
-      //repaint();
-    }
-    if (command.length() > 18){
-      return;
-    }
-    updateCommand(x, y);
-    repaint();
-    
-  }
-  
-  @Override
-  public void mouseReleased(MouseEvent arg0) {
-    // TODO: Take away the blue animation
-    drawHighlight = false;
-    repaint();
-  }
-  
 }

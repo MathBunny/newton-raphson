@@ -1,6 +1,8 @@
 import java.util.*;
+import exp4j.function.*;
+import exp4j.*;
 
-class Operation{
+public class Operation{
   private static String operation = "";
   static final double ACCURACY = 1e-10;
   final static int MAX_ATTEMPTS = 1000;
@@ -54,11 +56,11 @@ class Operation{
       
       newX = (x-(y/slope));
       if (Math.abs(newX-x) < ACCEPTABLE_CHANGE){
-        System.out.println("FOUND!");
+        System.out.println("Solution Found at: x= " + newX);
         return newX;
       }
       if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
-        System.out.println("INFINITE SLOPE!");
+        System.out.println("Error: Infinite slope found.");
         return Integer.MAX_VALUE;
       }
       x = newX;
@@ -69,7 +71,9 @@ class Operation{
 
   }
   
-  /** This method computes the derivative of a function using first principles.*/
+  /** This method computes the derivative of a function using first principles.
+    * @param value Double This is the value of the x coordinate 
+    */
   public static double derivative(double value){
     try{
       Expression e = new ExpressionBuilder(operation)
@@ -91,8 +95,8 @@ class Operation{
     
   }
   
-  
-  
+  /** This method sets the operation.
+    * @param operation String This is the operation being set. */
   public static void setOperation(String operation){
     Operation.operation = operation; //sketchy/
     

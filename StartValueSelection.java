@@ -5,34 +5,35 @@ import java.awt.*;
 import java.io.*;
 import java.text.*;
 
-
+/** This class shows the root of an expression, and allows the user to modify their estimates. 
+  * @author Horatiu Lazu
+  * @version 1.0 */
 @SuppressWarnings("serial")
 public class StartValueSelection extends JFrame implements MouseListener{
+  /** panel JPanel This is the panel that is used for the graphics */
   JTable panel = new JTable();
+  /** backgroundIMg Image This is the background image. */
   Image backgroundImg;
+  /** guess Double This is the estimated provided for Newton's algorithm. */
   double guess;
-  double ans = Integer.MAX_VALUE;
+  /** ans Double This is the answer pre-set */
+  double ans = Double.MAX_VALUE;
+  /** iterations int This is the number of iterations that were used */
   static int iterations = Integer.MAX_VALUE;
   
+  /** This is the class constructor */
   public StartValueSelection(){
     super("Commencing Values (Newton Raphson) - Horatiu Lazu");
     addMouseListener(this);
     setResizable(false);
-    
     useGivenValue();
   }
   
-  /** This method sets up the JFrame for finding the root based off of a starting value. */
+  /** This method sets up the JFrame for finding the root based off of a starting value. 
+    * @throws NumberFormatException This is in case of entering letters or symbols in the textbox
+    * @throws NullPointerException This is in case nothing is entered
+    */
   private void useGivenValue(){
-   
-    
-    //JButton computeDerivative = new JButton("kjfdsljdklsjf");
-    //computeDerivative.setSize(200,30);
-    //computeDerivative.setLocation(300,5);
-    
-    
-    //add(panel);
-    
     while(true){
       String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
       try{
@@ -48,7 +49,6 @@ public class StartValueSelection extends JFrame implements MouseListener{
           break;
       }
       catch(NumberFormatException e){
-        
         JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
       }
       catch(NullPointerException e){
@@ -56,18 +56,18 @@ public class StartValueSelection extends JFrame implements MouseListener{
         return;
       }
     }
-    
-    
-    
     setSize(500, 300);
     setVisible(true);
   }
   
-  public void drawHighlight(Graphics g){
-    //implement highlighting
-    
-  }
+  /** This draws the highlight.
+    * @param g Graphics Reference to the graphics of the frame. */
+  public void drawHighlight(Graphics g){}
   
+  /** This method adjusts the guess by the user 
+    * @throws NumberFormatException This is in case of entering letters or symbols in the textbox
+    * @throws NullPointerException This is in case nothing is entered 
+    */
   public void adjustGuess(){
      while(true){
       String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
@@ -95,6 +95,7 @@ public class StartValueSelection extends JFrame implements MouseListener{
     
   }
   
+  /** This method computes the answer. */
   public void compute(){
     Operation.setOperation(NewtonRaphsonApp.getCommand());
     ans = Operation.compute(guess);
@@ -107,6 +108,8 @@ public class StartValueSelection extends JFrame implements MouseListener{
     }
   }
   
+  /** This method fetches the image from the folder.
+    * @throws IOException In case the image was not found. */
   public void fetchImage(){
     try{
       backgroundImg = ImageIO.read(new File("images/StartStopValue.png"));
@@ -139,6 +142,8 @@ public class StartValueSelection extends JFrame implements MouseListener{
     
   }
   
+  /** This method redraws the image.
+    * @param g Graphics This is a graphics reference variable. */
   public void paint(Graphics g){
     super.paint(g);
     fetchImage();
@@ -148,21 +153,25 @@ public class StartValueSelection extends JFrame implements MouseListener{
     drawText(g);
   }
   
+  /** This method is for when the start value will be automatically detected. This feature will become later. */
   private void identifyStartingValue(){
     System.out.println("This function is not available yet!");
-    //setSize(500, 300);
-    // setVisible(true);
   }
   
-  public void mousePressed(MouseEvent e) {
-  }
+  /** This method is for when the mouse is pressed.
+    * @param e MouseEvent This is a referrence variable */
+  public void mousePressed(MouseEvent e) {}
   
+  /** This is for when the mouse is released.
+    * @param arg0 MouseEvent This is a reference variable. */
   public void mouseReleased(MouseEvent arg0) {
     // TODO: Take away the blue animation
     //drawHighlight = false;
     repaint();
   }
   
+  /** This method reacts when the mouse was clicked.
+    * @param e MouseEvent This is a reference variable */
   public void mouseClicked(MouseEvent e) {
     System.out.println(e.getX() + " " + e.getY());
     int x = e.getX();
@@ -181,7 +190,11 @@ public class StartValueSelection extends JFrame implements MouseListener{
     }
   }
 
+  /** This method is called when the mouse is entered.
+    * @param arg0 MouseEvent This is a reference variable */
   public void mouseEntered(MouseEvent arg0) {}
  
+  /** This method is called when the mouse is exited.
+    * @param arg0 MouseEvent This is a reference to the MouseEvent class */
   public void mouseExited(MouseEvent arg0) {}
 }
