@@ -11,6 +11,7 @@ import java.io.*;
  */
 
 public class About extends JFrame implements ActionListener{
+  /** background Image This is the background image */
   private Image background;
   
   /**
@@ -58,11 +59,15 @@ public class About extends JFrame implements ActionListener{
     }
   }
   
+  /** This method paints the graphics.
+    * @param g Graphics This is a reference variable. */
   public void paint(Graphics g){
     super.paint(g);
     g.drawImage(background,0,20,null);
   }
   
+  /** This checks for a button click.
+    * @param arg0 ActionEvent This is an action event reference */
   @Override
   public void actionPerformed(ActionEvent arg0) {
     setVisible(false);

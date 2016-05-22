@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
 
+
 /** This class acts as the runner and allows the user to enter equation information.
   * @author Horatiu Lazu
   * @version 1.0.0.0
@@ -237,19 +238,19 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       }
       // TODO Add restrictions on when you press certain buttons.
       // TODO Convert to 2D String map for operations 
-      if (x == 0 && y == 1) //add restriction...
+      else if (x == 0 && y == 1) //add restriction...
         command += ")^2";
       
-      if (x == 0 && y == 2)
+      else if (x == 0 && y == 2)
         command += ")^3";
       
-      if (x == 0 && y == 3)
+      else if (x == 0 && y == 3)
         command += ")^4";
       
-      if (x == 0 && y == 4)
+      else if (x == 0 && y == 4)
         command += ")^5";
       
-      if (x == 0 && (y > 0)){ // TODO use last operation method
+      else if (x == 0 && (y > 0)){ // TODO use last operation method
         if (!InputVerification.isValidExponent(command)){
           JOptionPane.showMessageDialog(this,"Notice: You cannot apply an exponential function without an expression enclosed in brackets.","Notice: Invalid Operation",JOptionPane.ERROR_MESSAGE);
           command = command.substring(0, command.length()-3);
@@ -261,69 +262,69 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
           return;
         }
       }
-      if (x == 1 && y == 0){
+      else if (x == 1 && y == 0){
         outputNotSupported();
         return;
         //command += "ln(";
       }
       
-      if (x == 1 && y == 1){
+      else if (x == 1 && y == 1){
         command += "log10(";
       }
       
-      if (x == 1 && y == 2){
+      else if (x == 1 && y == 2){
         command += "Ã";
       }
       
-      if (x == 1 && y == 3){
+      else if (x == 1 && y == 3){
         //command += "3Ã"; //not ideal...
         outputNotSupported();
         return;
       }
       
-      if (x == 1 && y == 4){
+      else if (x == 1 && y == 4){
         //command += "4Ã";
         outputNotSupported();
         return;
       }
       
-      if (x == 2 && y == 0){
+      else if (x == 2 && y == 0){
         command += "sin(";
       }
       
-      if (x == 2 && y == 1){
+      else if (x == 2 && y == 1){
         command += "cos(";
       }
       
-      if (x == 2 && y == 2){
+      else if (x == 2 && y == 2){
         command += "tan(";
       }
       
-      if (x == 2 && y == 3){
+      else if (x == 2 && y == 3){
         command += "(";
       }
       
-      if (x == 2 && y == 4){
+      else if (x == 2 && y == 4){
         command += ")";
       }
       
-      if (x == 3 && y == 0){
+      else if (x == 3 && y == 0){
         command += "sinh(";
       }
       
-      if (x == 3 && y == 1){
+      else if (x == 3 && y == 1){
         command += "cosh(";
       }
       
-      if (x == 3 && y == 2){
+      else if (x == 3 && y == 2){
         command += "tanh(";
       }
       
-      if (x == 3 && y == 3){
+      else if (x == 3 && y == 3){
         command += "^(";
       }
       
-      if (x == 3 && y == 4){
+      else if (x == 3 && y == 4){
         JOptionPane.showMessageDialog(this,
                                       "Notice: Decimals are not supported in this version!",
                                       "Notice: Unsupported Operation",
@@ -331,62 +332,62 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
         return;
       }
       
-      if (x == 4 && y == 1){
+      else if (x == 4 && y == 1){
         command += "7";
       }
       
-      if (x == 4 && y == 2){
+      else if (x == 4 && y == 2){
         command += "4";
       }
       
-      if (x == 4 && y == 3){
+      else if (x == 4 && y == 3){
         command += "1";
       }
       
-      if (y == 4 && (x == 4 || x == 5 || x == 6)){
+      else if (y == 4 && (x == 4 || x == 5 || x == 6)){
         command += "0";
       }
       
-      if (x == 5 && y == 1){
+      else if (x == 5 && y == 1){
         command += "8";
       }
       
-      if  (x == 5 && y == 2){
+      else if  (x == 5 && y == 2){
         command += "5";
       }
       
-      if (x == 5 && y == 3){
+      else if (x == 5 && y == 3){
         command += "2";
       }
       
-      if (x == 6 && y == 1){
+      else if (x == 6 && y == 1){
         command += "9";
       }
       
-      if (x == 6 && y == 2){
+      else if (x == 6 && y == 2){
         command += "6";
       }
       
-      if (x == 6 && y == 3){
+      else if (x == 6 && y == 3){
         command += "3";
       }
       
-      if (x == 7 && y == 0){
+      else if (x == 7 && y == 0){
         //command += "Ö";
         command += "/";
       }
       
-      if (x == 7 && y == 1){
+      else if (x == 7 && y == 1){
         //command += "x";
         command += "*";
       }
       
-      if (x == 7 && y == 3){
+      else if (x == 7 && y == 3){
         //command += "+";
         command += "+";
       }
       
-      if (x == 7 && y == 2){
+      else if (x == 7 && y == 2){
         command += "-";
       }
       
