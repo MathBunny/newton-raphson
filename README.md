@@ -1,35 +1,23 @@
 #Newton-Raphson Approximation Program
 
-###Purpose / Design
-* Find the root for _any_ expression using Newton's method
-* Uses exp4j to evaluate expressions (reverse Polish notation)
+##Purpose
+The purpose of this program is to find the root for _any_ expression using Newton's method. Provided any random point, this program can determine a root of the expression.
 
 It's important to note that: 
 > Newton's method does not work if the slope of tangency is zero at the guess, nor does it identify multiple roots
 
-###Features
+##Features
 * Nice interface to input equation
 * All input is error trapped right when entered by the user
 * User's estimate is error-trapped to prevent guessing when the tangent is equal to zero
 * Can compute over 1,000 iterations of Newton's method
-* Various different trignometric functions
+* Various different trignometric functions with scientific constants
+* Utilized exp4j for accurate evaluation of expressions (reverse-polish notation, Dijkstra Shunting-Yard algorithm)
 
-###Known Bugs
-* No button shadows for the "input guess" console
+##How to Run & Documentation
+Simply run the `NewtonRaphsonApp.java`, and the program will run. You can find the JavaDoc documentation in the `doc/` folder.
 
-###How to Run
-Simply run the `NewtonRaphsonApp.java`, and the program will run.
-
-###Documentation
-You can find the JavaDoc documentation in the `doc/` folder.
-
-###Future Updates
-* Structure folders better
-* Include settings to adjust number of iterations
-* Erase lines along the "zero" button
-* Include option to automatically identify roots
-
-###Screenshot
+##Screenshot
 ![Screenshot](http://horatiulazu.ca/software/images/NewtonRaphson.png "Screenshot")
 
 
