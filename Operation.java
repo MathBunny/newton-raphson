@@ -1,6 +1,4 @@
 import java.util.*;
-import exp4j.function.*;
-import exp4j.*;
 
 public class Operation{
   private static String operation = "";
@@ -13,23 +11,24 @@ public class Operation{
     constantList.add(new Variable(symbol, value));
   }
   
-  public static void addConstants(Expression e){
-    for(int x = 0; x < constantList.size(); x++){
-      e.setVariable(constantList.get(x).getSymbol(), constantList.get(x).getValue());
-    }
-  }
+  //public static void addConstants(Expression e){
+  //  for(int x = 0; x < constantList.size(); x++){
+  //    e.setVariable(constantList.get(x).getSymbol(), constantList.get(x).getValue());
+  //  }
+  // }
   
   public static double operate(double value){
-    Expression e = new ExpressionBuilder(operation)
-      .variables("X", "e", "pi", "¹") //uppercase...
-      .build()
-      .setVariable("X", value)
-      .setVariable("e", Math.E)
-      .setVariable("¹", Math.PI)
-      .setVariable("pi", Math.PI);
-    double result = e.evaluate();
-    //System.out.println("Res: " + result);
-    return result;
+    return PostfixEvaluater.evaluate(operation, value);
+    /*Expression e = new ExpressionBuilder(operation)
+     .variables("X", "e", "pi", "¹") //uppercase...
+     .build()
+     .setVariable("X", value)
+     .setVariable("e", Math.E)
+     .setVariable("¹", Math.PI)
+     .setVariable("pi", Math.PI);
+     double result = e.evaluate();
+     //System.out.println("Res: " + result);
+     return result;*/
   }
   
   //guess
@@ -47,9 +46,9 @@ public class Operation{
       double slope = derivative(x);
       /*
        * if (ACCEPTABLE_HORIZONTAL_SLOPE > Math.abs(slope)){
-           System.out.println("INFINITE SLOPE!");
-           return Integer.MAX_VALUE;
-        }
+       System.out.println("INFINITE SLOPE!");
+       return Integer.MAX_VALUE;
+       }
        * 
        * 
        * */
@@ -68,37 +67,42 @@ public class Operation{
     }
     System.out.println("Could not find any solution!");
     return Integer.MAX_VALUE; //could not find!
-
+    
   }
   
   /** This method computes the derivative of a function using first principles.
     * @param value Double This is the value of the x coordinate 
     */
   public static double derivative(double value){
-    try{
-      Expression e = new ExpressionBuilder(operation)
-        .variables("X", "e", "pi", "¹") //uppercase...
-        .build()
-        .setVariable("X", value)
-        .setVariable("e", Math.E)
-        .setVariable("¹", Math.PI)
-        .setVariable("pi", Math.PI);
-      double firstVal = e.evaluate();
-      double secondVal = ((e.setVariable("X", value + ACCURACY)).evaluate());
-      double dx = ((secondVal - firstVal)/(ACCURACY));
-      return dx;
-    }
-    catch(IllegalArgumentException e){
-      System.out.println(e);
-    }
-    return -1; //error!
+    double firstVal = PostfixEvaluater.evaluate(operation, value);
+    double secondVal = (PostfixEvaluater.evaluate(operation, value + ACCURACY));
+    double dx = ((secondVal - firstVal)/(ACCURACY));
+    return dx;
+    /*
+     try{
+     Expression e = new ExpressionBuilder(operation)
+     .variables("X", "e", "pi", "¹") //uppercase...
+     .build()
+     .setVariable("X", value)
+     .setVariable("e", Math.E)
+     .setVariable("¹", Math.PI)
+     .setVariable("pi", Math.PI);
+     double firstVal = e.evaluate();
+     double secondVal = ((e.setVariable("X", value + ACCURACY)).evaluate());
+     double dx = ((secondVal - firstVal)/(ACCURACY));
+     return dx;
+     }
+     catch(IllegalArgumentException e){
+     System.out.println(e);
+     }*/
+    //return -1; //error!
     
   }
   
   /** This method sets the operation.
     * @param operation String This is the operation being set. */
   public static void setOperation(String operation){
-    Operation.operation = operation; //sketchy/
+    Operation.operation = operation.trim(); //sketchy/
     
   }
   

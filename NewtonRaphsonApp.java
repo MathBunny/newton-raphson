@@ -45,6 +45,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   /** command String This stores the current selected command */
   private static String command = "";
   
+  private static String command2 = "";
+  
   /**
    * The purpose of this method is to start the program, as this is the main method.
    * @param args String [] The purpose of this is to pass arguements to the main method.
@@ -59,7 +61,11 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
    */
   
   public static String getCommand(){
-    return command;
+    return command2;
+  }
+  
+  public static String getExpression(){
+    return command; 
   }
   
   /**
@@ -232,6 +238,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       * @param y int This is the y-coordinate */
     
     private void updateCommand(int x, int y){
+      String cmdBefore = command;
+      
       
       if (x == 0 && y == 0){
         command += "X";
@@ -240,16 +248,12 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       // TODO Convert to 2D String map for operations 
       else if (x == 0 && y == 1) //add restriction...
         command += ")^2";
-      
       else if (x == 0 && y == 2)
         command += ")^3";
-      
       else if (x == 0 && y == 3)
         command += ")^4";
-      
       else if (x == 0 && y == 4)
         command += ")^5";
-      
       else if (x == 0 && (y > 0)){ // TODO use last operation method
         if (!InputVerification.isValidExponent(command)){
           JOptionPane.showMessageDialog(this,"Notice: You cannot apply an exponential function without an expression enclosed in brackets.","Notice: Invalid Operation",JOptionPane.ERROR_MESSAGE);
@@ -265,25 +269,18 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       else if (x == 1 && y == 0){
         outputNotSupported();
         return;
-        //command += "ln(";
       }
-      
-      else if (x == 1 && y == 1){
+      else if (x == 1 && y == 1)
         command += "log10(";
-      }
-      
-      else if (x == 1 && y == 2){
+      else if (x == 1 && y == 2)
         command += "Ã";
-      }
       
       else if (x == 1 && y == 3){
-        //command += "3Ã"; //not ideal...
         outputNotSupported();
         return;
       }
       
       else if (x == 1 && y == 4){
-        //command += "4Ã";
         outputNotSupported();
         return;
       }
@@ -393,6 +390,17 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       
       verifyCommandValidity(false);
       
+      if (!cmdBefore.equals(command)){
+        if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
+          command2 = command2.substring(0, command2.length()-1) + command.substring(cmdBefore.length()) + " ";
+        else
+          command2 = command2 + command.substring(cmdBefore.length()) + " ";
+        if (command2.endsWith("( ")){
+          System.out.println("OK");
+          command2 = command2.substring(0, command2.length()-2) + " ( ";
+        }
+      }
+      System.out.println(command2);
     }
     
     /** This helper method removes the last operation */
@@ -472,6 +480,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       
       if (x == 6 && y == 0){
         command = "";
+        command2 = "";
       }
       if (command.length() > 18){
         return;
@@ -488,6 +497,10 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       // TODO: Take away the blue animation
       drawHighlight = false;
       repaint();
+    }
+    
+    private boolean isNumber(String a){
+      try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
     }
     
 }

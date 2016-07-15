@@ -48,9 +48,10 @@ public class StartValueSelection extends JFrame implements MouseListener{
         }else
           break;
       }
-      catch(NumberFormatException e){
-        JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
-      }
+      //catch(NumberFormatException e){
+      //  System.out.println(e);
+      //  JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
+      //}
       catch(NullPointerException e){
         setVisible(false);
         return;
