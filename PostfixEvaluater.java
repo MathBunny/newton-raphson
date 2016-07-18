@@ -23,11 +23,11 @@ public class PostfixEvaluater{
     
     while(input2.hasMoreTokens()){
       String input = input2.nextToken();
-      if (input.equals("X")){
-        input = value + "";
-      }
       if (input == null)
         break;
+      
+      if (input.equals("X"))
+        input = value + "";
       
       if (operator.isSingleOperator(input)){
         double a = op.pop();

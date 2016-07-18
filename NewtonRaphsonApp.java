@@ -47,6 +47,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   
   private static String command2 = "";
   
+  private double guess;
+  
   /**
    * The purpose of this method is to start the program, as this is the main method.
    * @param args String [] The purpose of this is to pass arguements to the main method.
@@ -64,6 +66,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     return command2;
   }
   
+  /** This method returns the expression, as readable for the user.
+    * @return String The expression. */
   public static String getExpression(){
     return command; 
   }
@@ -102,7 +106,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       JOptionPane.showMessageDialog(this, "Error: Could not find required image files!");
     }
   }
-  
   
   /**
    * This method adds the menu-bar.
@@ -143,16 +146,14 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   }
   
   /** This method draws the hightlights
-    * @param g Graphics This object is a reference variable for the form's graphcis */
+    * @param g Graphics This object is a reference variable for the form's graphics */
   private void drawHighLight(Graphics g){
     if (!drawHighlight)
       return;
-    if (drawZero){
-      // TODO Draw zero in.
-    }
-    else{
+    if (drawZero){}
+    else
       g.drawImage(highlight, 58 * highlightX,  100 + 50 * highlightY,  null);
-    }
+    
   }
   
   /** This method updates the screen's text.
@@ -180,6 +181,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     else if (turnedOn){
       off=false;
       command = "";
+      command2 = "";
       g.drawImage(displayInitialize, 0, 44, 490, 57, null);
       try{
         Thread.sleep(50);
@@ -191,6 +193,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       off = true;
       g.drawImage(displayOff, 0, 44, 490, 57, null);
       command = "";
+      command2 = "";
     }
     
     drawHighLight(g);
@@ -244,8 +247,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       if (x == 0 && y == 0){
         command += "X";
       }
-      // TODO Add restrictions on when you press certain buttons.
-      // TODO Convert to 2D String map for operations 
       else if (x == 0 && y == 1) //add restriction...
         command += ")^2";
       else if (x == 0 && y == 2)
@@ -274,61 +275,36 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
         command += "log("; //log!
       else if (x == 1 && y == 2)
         command += "Ã";
-      
       else if (x == 1 && y == 3){
         outputNotSupported();
         return;
       }
-      
       else if (x == 1 && y == 4){
         outputNotSupported();
         return;
       }
-      
-      else if (x == 2 && y == 0){
+      else if (x == 2 && y == 0)
         command += "sin(";
-      }
-      
-      else if (x == 2 && y == 1){
+      else if (x == 2 && y == 1)
         command += "cos(";
-      }
-      
-      else if (x == 2 && y == 2){
+      else if (x == 2 && y == 2)
         command += "tan(";
-      }
-      
-      else if (x == 2 && y == 3){
+      else if (x == 2 && y == 3)
         command += "(";
-      }
-      
-      else if (x == 2 && y == 4){
+      else if (x == 2 && y == 4)
         command += ")";
-      }
-      
-      else if (x == 3 && y == 0){
+      else if (x == 3 && y == 0)
         command += "sinh(";
-      }
-      
-      else if (x == 3 && y == 1){
+      else if (x == 3 && y == 1)
         command += "cosh(";
-      }
-      
-      else if (x == 3 && y == 2){
+      else if (x == 3 && y == 2)
         command += "tanh(";
-      }
-      
-      else if (x == 3 && y == 3){
+      else if (x == 3 && y == 3)
         command += "^(";
-      }
-      
       else if (x == 3 && y == 4){
-        JOptionPane.showMessageDialog(this,
-                                      "Notice: Decimals are not supported in this version!",
-                                      "Notice: Unsupported Operation",
-                                      JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Notice: Decimals are not supported in this version!","Notice: Unsupported Operation", JOptionPane.ERROR_MESSAGE);
         return;
       }
-      
       else if (x == 4 && y == 1){
         command += "7";
       }
@@ -396,8 +372,11 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
         else
           command2 = command2 + command.substring(cmdBefore.length()) + " ";
         if (command2.endsWith("( ")){
-          System.out.println("OK");
-          command2 = command2.substring(0, command2.length()-2) + " ( ";
+          //figure out if you need to insert a * or not ... ex: 2( or any number for that matter.. .. 
+          if (command2.charAt(command2.length()-4) >= '0' && command2.charAt(command2.length()-4) <= '9' || command2.charAt(command2.length()-4) == 'X')
+            command2 = command2.substring(0, command2.length()-2) + "* ( ";
+          else
+            command2 = command2.substring(0, command2.length()-2) + " ( "; //extra space .. doesn't matter tho
         }
       }
       System.out.println(command2);
@@ -435,7 +414,41 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
         JOptionPane.showMessageDialog(this,"Fatal Error: You cannot calculate without inputting an equation!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
         return;
       }
-      new StartValueSelection();
+      if (Settings.shouldDisplay())
+        new StartValueSelection();
+      else{
+        while(true){
+          String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
+          try{
+            if (s == null)
+              return;
+            guess = Double.parseDouble(s);
+            Operation.setOperation(NewtonRaphsonApp.getCommand());
+            if (Operation.derivative(guess) <= Operation.ACCURACY){
+              JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
+            }else{
+              
+              Operation.setOperation(NewtonRaphsonApp.getCommand());
+              double ans = Operation.compute(guess);
+              
+              if (ans == Integer.MAX_VALUE){
+                JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
+              }
+              else{
+                JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (ans));
+              }
+              break;
+              
+            }
+          }
+          catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
+          }
+          catch(NullPointerException e){
+            return;
+          }
+        }
+      }
     }
     
     /** This method gets the x position and y position of a click
@@ -492,6 +505,5 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     
     private boolean isNumber(String a){
       try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
-    }
-    
+    }    
 }
