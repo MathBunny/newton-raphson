@@ -38,8 +38,8 @@ public class StartValueSelection extends JFrame implements MouseListener{
       String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
       try{
         if (s == null){
-           setVisible(false);
-           return;
+          setVisible(false);
+          return;
         }
         guess = Double.parseDouble(s);
         Operation.setOperation(NewtonRaphsonApp.getCommand());
@@ -48,10 +48,6 @@ public class StartValueSelection extends JFrame implements MouseListener{
         }else
           break;
       }
-      //catch(NumberFormatException e){
-      //  System.out.println(e);
-      //  JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
-      //}
       catch(NullPointerException e){
         setVisible(false);
         return;
@@ -70,12 +66,12 @@ public class StartValueSelection extends JFrame implements MouseListener{
     * @throws NullPointerException This is in case nothing is entered 
     */
   public void adjustGuess(){
-     while(true){
+    while(true){
       String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
       try{
         if (s == null){
-           setVisible(false);
-           return;
+          setVisible(false);
+          return;
         }
         guess = Double.parseDouble(s);
         Operation.setOperation(NewtonRaphsonApp.getCommand());
@@ -135,7 +131,6 @@ public class StartValueSelection extends JFrame implements MouseListener{
     
     g.drawString((iterations == Integer.MAX_VALUE) ? ("Unknown") : (iterations + ""), 255, 192);
     
-    //g.setFont(new Font("Helvetica", Font.PLAIN, 20));
     if (NewtonRaphsonApp.getCommand().length() > 10)
       g.drawString((NewtonRaphsonApp.getCommand()+ "").substring(0, 10), 80, 57);
     else
@@ -166,8 +161,6 @@ public class StartValueSelection extends JFrame implements MouseListener{
   /** This is for when the mouse is released.
     * @param arg0 MouseEvent This is a reference variable. */
   public void mouseReleased(MouseEvent arg0) {
-    // TODO: Take away the blue animation
-    //drawHighlight = false;
     repaint();
   }
   
@@ -190,11 +183,11 @@ public class StartValueSelection extends JFrame implements MouseListener{
       setVisible(false);
     }
   }
-
+  
   /** This method is called when the mouse is entered.
     * @param arg0 MouseEvent This is a reference variable */
   public void mouseEntered(MouseEvent arg0) {}
- 
+  
   /** This method is called when the mouse is exited.
     * @param arg0 MouseEvent This is a reference to the MouseEvent class */
   public void mouseExited(MouseEvent arg0) {}

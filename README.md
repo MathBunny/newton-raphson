@@ -12,7 +12,7 @@ It's important to note that:
 * User's estimate is error-trapped to prevent guessing when the tangent is equal to zero
 * Can compute over 1,000 iterations of Newton's method
 * Various different trignometric functions with scientific constants
-* Utilized exp4j for accurate evaluation of expressions (reverse-polish notation, Dijkstra Shunting-Yard algorithm)
+* Utilized Dijkstra's Shunting-Yard algorithm (Reverse Polish Notation) and stacks to parse expressions
 
 ##How to Run & Documentation
 Simply run the `NewtonRaphsonApp.java`, and the program will run. You can find the JavaDoc documentation in the `doc/` folder.

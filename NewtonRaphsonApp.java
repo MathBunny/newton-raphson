@@ -271,7 +271,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
         return;
       }
       else if (x == 1 && y == 1)
-        command += "log10(";
+        command += "log("; //log!
       else if (x == 1 && y == 2)
         command += "Ã";
       
@@ -427,6 +427,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       return true;
     }
     
+    /* This method calculates by calling start value selection. */
     private void calculate(){
       if (!verifyCommandValidity(true))
         return;
@@ -442,49 +443,40 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     
     @Override
     public void mousePressed(MouseEvent arg0) {
-      // TODO: Make this code more KISS?
       int x = arg0.getX() / 58;
       int y = (arg0.getY() -100) / 50;
-      //x = x / 58;
-      //y = (y - 100)/50;
       
       if (x < 0 || x > 7 || y < 0 || y > 4)
         return;
-      if (x == 4 && y == 0){
-        turnedOn = true;   
-      }
-      else{
-        turnedOn = false;
-      }
-      if (x == 5 && y == 0){
-        turnedOff = true;
-      }
-      else{
-        turnedOff = false;
-      }
       
+      turnedOn = ((x == 4 && y == 0) ? (true) : (false));
+      turnedOff = ((x == 5 &&
+                    y == 0) ? (true) : (false));
       drawHighlight = true;
       if (x >=4 && x <= 6 && y == 4)
         drawZero = true;
       else
         drawZero = false;
+      
       highlightX = x;
       highlightY = y;
+      
       if (off)
         return;
       
       if (x == 7 && y == 4){ //calculate button
         calculate();
-        return; //return?
+        return; 
       }
       
       if (x == 6 && y == 0){
         command = "";
         command2 = "";
       }
-      if (command.length() > 18){
+      
+      if (command.length() > 18)
         return;
-      }
+      
       updateCommand(x, y);
       repaint();
     }
@@ -494,7 +486,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     
     @Override
     public void mouseReleased(MouseEvent arg0) {
-      // TODO: Take away the blue animation
       drawHighlight = false;
       repaint();
     }

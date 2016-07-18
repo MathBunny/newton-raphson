@@ -1,4 +1,3 @@
-
 /**
  * This class verifies the input
  * @author Horatiu Lazu
@@ -20,6 +19,9 @@ public class InputVerification {
     return returnVal;
   }
   
+  /** This method indicates if the input has a valid exponent. 
+    * @param input String This is the input.
+    * @return boolean This is true/false depending on the validity of the input. */
   public static boolean isValidExponent(String input){
     if (countCharacter(input, '(') >= countCharacter(input, ')'))
       return true;
