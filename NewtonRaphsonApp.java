@@ -427,7 +427,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
             if (Operation.derivative(guess) <= Operation.ACCURACY){
               JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
             }else{
-              
               Operation.setOperation(NewtonRaphsonApp.getCommand());
               double ans = Operation.compute(guess);
               
