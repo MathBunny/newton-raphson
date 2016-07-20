@@ -32,13 +32,12 @@ public class About extends JFrame implements ActionListener{
   
   /** 
    * This method adds a button 
-  */
+   */
   private void addButton(){
     JPanel panel = new JPanel();
     JButton quit = new JButton("Quit");
     panel.setLayout(null);
     quit.addActionListener(this);
-    
     
     quit.setSize(100,30);
     quit.setLocation(80,270);

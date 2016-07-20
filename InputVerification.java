@@ -28,6 +28,9 @@ public class InputVerification {
     return false;
   }
   
+  /** This method determines if the brackets are balanced or not. This is an alternative to using a stack.
+    * @param input String This is the input that it used to determine.
+    * @param isFinal boolean This is used to determine if it should be completely balanced or just logically valid so far. Ex: 5 (x + 3 is valid if you are not done typing. */
   public static boolean hasBalancedBrackets(String input, boolean isFinal){
     int openCount = 0;
     int closeCount = 0;

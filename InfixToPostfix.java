@@ -1,10 +1,4 @@
-import java.io.*;
 import java.util.*;
-import java.lang.*;
-import java.awt.*;
-import java.awt.geom.*;
-import java.math.*;
-import java.text.*;
 
 /** This class converts infix to postfix.
   * @author Horatiu Lazu
@@ -14,37 +8,31 @@ public class InfixToPostfix{
   /** This method converts infix to postfix. It uses Dijkstra's Shunting-Yard algorithm.
     * @param input String This is the input. 
     */
-  public static String InfixToPostfix(String input){
-    StringTokenizer st = new StringTokenizer(input);
-    HashSet<String> operator = new HashSet<String>();
-    operator.add("*");
-    operator.add("+");
-    operator.add("-");
-    operator.add("/");
-    operator.add("^");
+  public static String infixToPostfix(String input){
+    StringTokenizer st = new StringTokenizer(input); //tokenize the input
+    StringBuilder res = new StringBuilder(""); //build the result with the StringBuilder for O(1) appending
+    Stack<String> stack = new Stack<String>(); //stack used for the Shunting-Yard
     
-    StringBuilder res = new StringBuilder("");
-    Stack<String> stack = new Stack<String>();
-    Operations ops = new Operations();
+    Operations ops = new Operations(); //reference for operation variables
     while(st.hasMoreTokens()){
-      String token = st.nextToken();
+      String token = st.nextToken(); //get the next token
       if (ops.isOperator(token)){
-        while(!stack.isEmpty() && !stack.peek().equals("(") && ops.hasHigherPrecendece(stack.peek(), token)){
+        while(!stack.isEmpty() && !stack.peek().equals("(") && ops.hasHigherPrecendece(stack.peek(), token)){ //higher precedence
           res.append(stack.pop() + " "); 
         } 
         stack.push(token);
       }
-      else if (token.equals("(")){
+      else if (token.equals("(")){ //let open braces to be normal
         stack.push("("); 
       }
-      else if (token.equals(")")){
+      else if (token.equals(")")){ //keep appending until you get an open bracket
         while(!stack.isEmpty() && !stack.peek().equals("(")){
           res.append(stack.pop() + " "); 
         } 
         stack.pop();
       }
       else{
-        res.append(token + " "); 
+        res.append(token + " ");  //append the token normally
       }
     } 
     while (!stack.isEmpty())

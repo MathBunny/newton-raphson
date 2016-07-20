@@ -170,18 +170,14 @@ public class StartValueSelection extends JFrame implements MouseListener{
     System.out.println(e.getX() + " " + e.getY());
     int x = e.getX();
     int y = e.getY();
-    if (x >= 11 && x <= 186 && y >= 220 && y <= 284){
-      System.out.println("left button");
+    
+    if (x >= 11 && x <= 186 && y >= 220 && y <= 284)
       adjustGuess();
-    }
-    else if (x >= 220 && x <= 395 && y >= 220 && y <=284){
-      System.out.println("middle button");
+    else if (x >= 220 && x <= 395 && y >= 220 && y <=284)
       compute();
-    }
-    else if (x >= 426 && x <= 489 && y >= 219 && y <= 297){
-      System.out.println("BACK!");
+    else if (x >= 426 && x <= 489 && y >= 219 && y <= 297)
       setVisible(false);
-    }
+    
   }
   
   /** This method is called when the mouse is entered.

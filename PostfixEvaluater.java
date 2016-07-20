@@ -1,10 +1,4 @@
-import java.io.*;
 import java.util.*;
-import java.lang.*;
-import java.awt.*;
-import java.awt.geom.*;
-import java.math.*;
-import java.text.*;
 
 /** This class evaluates postfix expressions.
   * @author Horatiu Lazu
@@ -14,9 +8,11 @@ public class PostfixEvaluater{
   
   /** This method evaluates postfix expressions.
     * @param expression String This is the string with the expression.
-    * @param value double This is the value. */
+    * @param value double This is the value. 
+    * @return double This is the result of the expression at the given value.
+    */
   public static double evaluate(String expression, double value){
-    expression = InfixToPostfix.InfixToPostfix(expression);
+    expression = InfixToPostfix.infixToPostfix(expression);
     Operations operator = new Operations();
     Stack<Double> op = new Stack<Double>();
     StringTokenizer input2 = new StringTokenizer(expression);

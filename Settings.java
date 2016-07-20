@@ -1,6 +1,13 @@
 import java.io.*;
 
+/** This class sees if the additional screen should be displayed based off of the configuration file.
+  * @author Horatiu Lazu */
 public class Settings{
+  
+  /** This method looks and tries to read from the file to see if it should open the screen or not.
+    * @throws IOException This is in case of a file read error. 
+    * @returns boolean This is if it should display.
+    */
   public static boolean shouldDisplay(){
     try{
       BufferedReader in = new BufferedReader(new FileReader("settings.txt"));
@@ -11,5 +18,4 @@ public class Settings{
     catch(Exception e){}
     return true;
   }
-  
 }
