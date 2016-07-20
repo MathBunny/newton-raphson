@@ -1,37 +1,34 @@
 import javax.swing.*;
 import javax.imageio.ImageIO;
-
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+
 /**
  * The purpose of this class is to show an about box.
  * @author Horatiu Lazu
- * @version 1.0.0.0
+ * @version 1.1
  */
-
-public class About extends JFrame implements ActionListener{
-  /** background Image This is the background image */
+public class ScreenAbout extends JFrame implements ActionListener{
+  /** background Image This is the background image object */
   private Image background;
   
   /**
    * This is the class constructor.
    */
-  public About(){
+  public ScreenAbout(){
     super("About Newton Raphson Approximation");
     setSize(250, 350);
     setResizable(false);
     
     addButton();
     fetchImage();
-    repaint();
-    validate();
     
     setVisible(true);
   }
   
   /** 
-   * This method adds a button 
+   * This method adds a button to quit.
    */
   private void addButton(){
     JPanel panel = new JPanel();
@@ -39,14 +36,15 @@ public class About extends JFrame implements ActionListener{
     panel.setLayout(null);
     quit.addActionListener(this);
     
-    quit.setSize(100,30);
-    quit.setLocation(80,270);
+    quit.setSize(100, 30);
+    quit.setLocation(80, 270);
     
     panel.add(quit);
     add(panel);
   }
   
   /**
+   * This method fetches the image for about.
    * @throws IOException This is in case there's a file reading error. 
    */
   private void fetchImage(){
@@ -62,7 +60,7 @@ public class About extends JFrame implements ActionListener{
     * @param g Graphics This is a reference variable. */
   public void paint(Graphics g){
     super.paint(g);
-    g.drawImage(background,0,20,null);
+    g.drawImage(background, 0, 20, null);
   }
   
   /** This checks for a button click.

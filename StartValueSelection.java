@@ -97,12 +97,11 @@ public class StartValueSelection extends JFrame implements MouseListener{
     Operation.setOperation(NewtonRaphsonApp.getCommand());
     ans = Operation.compute(guess);
     
-    if (ans == Integer.MAX_VALUE){
+    if (ans == Integer.MAX_VALUE)
       JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
-    }
-    else{
+    else
       JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (Operation.compute(guess)));
-    }
+    
   }
   
   /** This method fetches the image from the folder.

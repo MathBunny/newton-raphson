@@ -12,20 +12,21 @@ public class PostfixEvaluater{
     * @return double This is the result of the expression at the given value.
     */
   public static double evaluate(String expression, double value){
-    expression = InfixToPostfix.infixToPostfix(expression);
-    Operations operator = new Operations();
-    Stack<Double> op = new Stack<Double>();
-    StringTokenizer input2 = new StringTokenizer(expression);
+    expression = InfixToPostfix.infixToPostfix(expression); //convert infix to postfix
     
-    while(input2.hasMoreTokens()){
-      String input = input2.nextToken();
+    Operations operator = new Operations(); //operations reference to distinguish binary and unary operators
+    Stack<Double> op = new Stack<Double>(); //operations stack used to organize information
+    StringTokenizer st = new StringTokenizer(expression); //tokenize input into tokens
+    
+    while(st.hasMoreTokens()){
+      String input = st.nextToken();
       if (input == null)
         break;
       
-      if (input.equals("X"))
+      if (input.equals("X")) //append the value of x if the variable is mentioned
         input = value + "";
       
-      if (operator.isSingleOperator(input)){
+      if (operator.isSingleOperator(input)){ 
         double a = op.pop();
         op.push(operator.compute(a, input));
       }

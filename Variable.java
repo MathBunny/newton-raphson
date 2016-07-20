@@ -1,5 +1,7 @@
 /** This class abstracts a variable.
-  * @author Horatiu Lazu */
+  * @author Horatiu Lazu 
+  * @version 1.0
+  */
 public class Variable{
   /** symbol String This is the string representation of the variable (ie, x) */
   private String symbol;
@@ -25,5 +27,4 @@ public class Variable{
   public double getValue(){
     return value;
   }
-  
 }

@@ -2,7 +2,7 @@ import java.util.*;
 
 /** This class stores the key mapping for the keyboard on the calculator.
   * @author Horatiu Lazu
-  * @version 1.0.0.0 */
+  * @version 1.0 */
 public class KeyMapping{
   /** getCommandAppending HashMap This map converts the coordinates into commands. */
   public HashMap<String, String> getCommandAppending = new HashMap<String, String>();

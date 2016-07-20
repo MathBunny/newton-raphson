@@ -411,7 +411,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     }
     
     /** This method determines if the input is a number.
-      * @param s String This is the input
+      * @param a String This is the input
       * @throws NumberFormatException This is to test to see if the input is a number. */
     private boolean isNumber(String a){
       try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}

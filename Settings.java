@@ -1,12 +1,14 @@
 import java.io.*;
 
 /** This class sees if the additional screen should be displayed based off of the configuration file.
-  * @author Horatiu Lazu */
+  * @author Horatiu Lazu
+  * @version 1.0
+  */
 public class Settings{
   
   /** This method looks and tries to read from the file to see if it should open the screen or not.
     * @throws IOException This is in case of a file read error. 
-    * @returns boolean This is if it should display.
+    * @return boolean This is if it should display.
     */
   public static boolean shouldDisplay(){
     try{
