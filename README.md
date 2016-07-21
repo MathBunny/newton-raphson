@@ -15,7 +15,7 @@ It's important to note that:
 * Utilized Dijkstra's Shunting-Yard algorithm (Reverse Polish Notation) and stacks to parse expressions
 
 ##How to Run & Documentation
-Simply run the `NewtonRaphsonApp.java`, and the program will run. You can find the JavaDoc documentation in the `doc/` folder.
+Simply run the `NewtonRaphsonApp.java`, and the program will run. Find JavaDoc documentation in the `doc/` folder.
 
 ##Screenshot
 ![Screenshot](http://horatiulazu.ca/software/images/NewtonRaphson.png "Screenshot")
