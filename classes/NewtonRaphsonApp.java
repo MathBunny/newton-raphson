@@ -84,12 +84,12 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
    */
   private void fetchImages(){
     try{
-      backgroundImg = ImageIO.read(new File("images/CalculatorBackground.jpg"));
-      display = ImageIO.read(new File("images/monitor.jpg"));
-      highlight = ImageIO.read(new File("images/highlight.png"));
-      displayInitialize = ImageIO.read(new File("images/initializing.jpg"));
-      displayOff = ImageIO.read(new File("images/off.jpg"));
-      maxChar = ImageIO.read(new File("images/monitor_max.jpg"));
+      backgroundImg = ImageIO.read(new File("../images/CalculatorBackground.jpg"));
+      display = ImageIO.read(new File("../images/monitor.jpg"));
+      highlight = ImageIO.read(new File("../images/highlight.png"));
+      displayInitialize = ImageIO.read(new File("../images/initializing.jpg"));
+      displayOff = ImageIO.read(new File("../images/off.jpg"));
+      maxChar = ImageIO.read(new File("../images/monitor_max.jpg"));
     }
     catch(IOException e){
       JOptionPane.showMessageDialog(this, "Error: Could not find required image files!");
@@ -198,7 +198,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     if (cmd.equals("Quit"))
       System.exit(0);
     else
-      new About();
+      new ScreenAbout();
   }
   
   
