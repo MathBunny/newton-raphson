@@ -45,7 +45,6 @@ public class ScreenAbout extends JFrame implements ActionListener{
   
   /**
    * This method fetches the image for about.
-   * @throws IOException This is in case there's a file reading error. 
    */
   private void fetchImage(){
     try{

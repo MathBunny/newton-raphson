@@ -7,9 +7,9 @@ public class InputVerification {
   
   /**
    * This method counts the number of occurances of a particular character.
-   * @param input This is the String input
-   * @param character This is the character that is being searched for
-   * @return int This is the count of the number of times that a character has been searched for
+   * @param input This is the String input.
+   * @param character This is the character that is being searched for.
+   * @return int This is the count of the number of times that a character has been searched for.
    */
   public static int countCharacter (String input, char character){
     int returnVal = 0;
@@ -30,7 +30,8 @@ public class InputVerification {
   
   /** This method determines if the brackets are balanced or not. This is an alternative to using a stack.
     * @param input String This is the input that it used to determine.
-    * @param isFinal boolean This is used to determine if it should be completely balanced or just logically valid so far. Ex: 5 (x + 3 is valid if you are not done typing. */
+    * @param isFinal boolean This is used to determine if it should be completely balanced or just logically valid so far. Ex: 5 (x + 3 is valid if you are not done typing.
+    * @return boolean This indicates if the brackets are balanced.*/
   public static boolean hasBalancedBrackets(String input, boolean isFinal){
     int openCount = 0;
     int closeCount = 0;
@@ -56,8 +57,8 @@ public class InputVerification {
     if (input.length() == 0)
       return true;
     char prev, current;
-    char [] invalidChars = {'x', 'X','+','-','*','^', 'Ö', '/'};
-    char [] operators = {'+','-','x','^','Ö', '/', '*'};
+    char [] invalidChars = {'x', 'X','+','-','*','^', 'ï¿½', '/'};
+    char [] operators = {'+','-','x','^','ï¿½', '/', '*'};
     for(int i = 1; i < input.length(); i++){
       prev = input.charAt(i-1);
       current = input.charAt(i);

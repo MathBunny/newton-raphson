@@ -15,7 +15,7 @@ public class KeyMapping{
     getCommandAppending.put("0|3", ")^4");
     getCommandAppending.put("0|4", ")^5");
     getCommandAppending.put("1|1", "log(");
-    getCommandAppending.put("1|2", "Ã");
+    getCommandAppending.put("1|2", "sqrt(");
     getCommandAppending.put("1|1", "log(");
     getCommandAppending.put("2|0", "sin(");
     getCommandAppending.put("2|1", "cos(");
