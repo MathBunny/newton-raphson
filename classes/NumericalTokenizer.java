@@ -1,12 +1,15 @@
 import java.util.*;
 
+/**
+ * This class converts tokenizes and spaces expressions so it can be read by the parser.
+ * @author Horatiu Lazu
+ * @version 1.0 */
 public class NumericalTokenizer{
+  /** operatorHelper Operations This is the operations reference. */
   private Operations operatorHelper = new Operations();
   
-  public static void main (String [] args){
-    System.out.println(new NumericalTokenizer().convertToSpacedNumericalFormat("72sin(x^2+32)*32-32+x^32+(1)"));
-  }
-  
+  /** This method converts the input to the proper format.
+    * @param s String This is the input string. */
   public String convertToSpacedNumericalFormat(String s){
     StringBuilder ans = new StringBuilder("");
     int ptrA = 0;

@@ -7,7 +7,6 @@ import java.io.*;
 public class Settings{
   
   /** This method looks and tries to read from the file to see if it should open the screen or not.
-    * @throws IOException This is in case of a file read error. 
     * @return boolean This is if it should display.
     */
   public static boolean shouldDisplay(){

@@ -72,7 +72,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   
   /**
    * This method gets the background from the folder.
-   * @throws IOException This throws an IOException if an error occurs.
    */
   private void fetchImages(){
     try{
