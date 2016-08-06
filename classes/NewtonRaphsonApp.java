@@ -8,7 +8,7 @@ import java.util.*;
 
 /** This class acts as the runner and allows the user to enter equation information.
   * @author Horatiu Lazu
-  * @version 2.0.0.0
+  * @version 2.1
   */
 
 @SuppressWarnings("serial")
@@ -51,14 +51,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   private double guess;
   /** keyMapping KeyMapping This is the mapping of the keys. */
   private KeyMapping keyMapping;
-  
-  /**
-   * The purpose of this method is to start the program, as this is the main method.
-   * @param args String [] The purpose of this is to pass arguements to the main method.
-   */
-  public static void main(String[] args) {
-    new NewtonRaphsonApp();
-  }
   
   /**
    * This method sets the JFrame, and calls the super-class to set the title of the JFrame.
@@ -171,7 +163,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       expression = "";
       g.drawImage(displayInitialize, 0, 44, 490, 57, null);
       try{
-        Thread.sleep(50);
+        Thread.sleep(100);
       }
       catch(Exception e){}
       g.drawImage(display,  0,  44,  490,  57,  null);
@@ -201,219 +193,226 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       new ScreenAbout();
   }
   
+  /** This method informs the user that a certain feature is not available. */
   
-  /** This method is for when the mouse is clicked.
-    @param arg0 This is a MouseEvent reference variable */
-    @Override
-    public void mouseClicked(MouseEvent arg0) {}
+  private void outputNotSupported(){
+    JOptionPane.showMessageDialog(this,"Notice: This operation is not supported in this version!","Notice: Unsupported Operation",JOptionPane.ERROR_MESSAGE);
+  }
+  
+  /** This updates the current command demanding on where the mouse was clicked.
+    * @param x int This is the x-coordinate
+    * @param y int This is the y-coordinate */
+  
+  private void updateCommand(int x, int y){
+    String cmdBefore = command;
     
-    /** This method is for when the mouse is entered.
-      * @param arg0 This is a MouseEvent reference variable */
-    @Override
-    public void mouseEntered(MouseEvent arg0) {}
-    
-    /** This method is for when the mouse is exited.
-      * @param arg0 MouseEvent This is a MouseEvent reference variable */
-    @Override
-    public void mouseExited(MouseEvent arg0) {}
-    
-    /** This method informs the user that a certain feature is not available. */
-    
-    private void outputNotSupported(){
-      JOptionPane.showMessageDialog(this,"Notice: This operation is not supported in this version!","Notice: Unsupported Operation",JOptionPane.ERROR_MESSAGE);
+    if (keyMapping.getCommandAppending.get(x + "|" + y) != null){
+      command += keyMapping.getCommandAppending.get(x + "|" + y);
     }
-    
-    /** This updates the current command demanding on where the mouse was clicked.
-      * @param x int This is the x-coordinate
-      * @param y int This is the y-coordinate */
-    
-    private void updateCommand(int x, int y){
-      String cmdBefore = command;
-      
-      if (keyMapping.getCommandAppending.get(x + "|" + y) != null){
-        command += keyMapping.getCommandAppending.get(x + "|" + y);
-      }
-      else if (x == 0 && (y > 0)){
-        if (!InputVerification.isValidExponent(command)){
-          JOptionPane.showMessageDialog(this,"Notice: You cannot apply an exponential function without an expression enclosed in brackets.","Notice: Invalid Operation",JOptionPane.ERROR_MESSAGE);
-          command = command.substring(0, command.length()-3);
-          return;
-        }
-        if (!InputVerification.hasRepeatedInvalidOperators(command)){
-          JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
-          command = command.substring(0, command.length() -3);
-          return;
-        }
-      }
-      else if ((x == 1 && y == 3) || (x == 1 && y == 4) || (x == 1 && y == 0)){
-        outputNotSupported();
+    else if (x == 0 && (y > 0)){
+      if (!InputVerification.isValidExponent(command)){
+        JOptionPane.showMessageDialog(this, "Notice: You cannot apply an exponential function without an expression enclosed in brackets.","Notice: Invalid Operation", JOptionPane.ERROR_MESSAGE);
+        command = command.substring(0, command.length()-3);
         return;
-      }
-      else if (x == 3 && y == 4){
-        JOptionPane.showMessageDialog(this,"Notice: Decimals are not supported in this version!","Notice: Unsupported Operation", JOptionPane.ERROR_MESSAGE);
-        return;
-      }
-      
-      verifyCommandValidity(false);
-      
-      if (!cmdBefore.equals(command)){
-        if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
-          expression = expression.substring(0, expression.length()-1) + command.substring(cmdBefore.length()) + " ";
-        else
-          expression = expression + command.substring(cmdBefore.length()) + " ";
-        if (expression.endsWith("( ")){
-          if (expression.charAt(expression.length()-4) >= '0' && expression.charAt(expression.length()-4) <= '9' || expression.charAt(expression.length()-4) == 'X')
-            expression = expression.substring(0, expression.length()-2) + "* ( ";
-          else
-            expression = expression.substring(0, expression.length()-2) + " ( "; //extra space .. doesn't matter tho
-        }
-      }
-      System.out.println(expression);
-    }
-    
-    /** This helper method removes the last operation */
-    private void removeLastOperation(){
-      command = command.substring(0, command.length()-1);
-    }
-    
-    /** This method calculates the validity of a command.
-      * @param isFinal boolean This determines if it is the final computation (in which case different things need to be verified, for example appropriate closing brackets)
-      * @return boolean This determines if it is valid.
-      */
-    
-    private boolean verifyCommandValidity(boolean isFinal){
-      if (!InputVerification.hasBalancedBrackets(command, isFinal)){
-        JOptionPane.showMessageDialog(this,"Fatal Error: You have invalid bracket proportions!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
-        removeLastOperation();
-        return false;
       }
       if (!InputVerification.hasRepeatedInvalidOperators(command)){
-        JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
-        removeLastOperation();
-        return false;
-      }
-      return true;
-    }
-    
-    /**
-     * This method returns the command.
-     * @return String The command.
-     */
-    
-    public static String getCommand(){
-      return expression;
-    }
-    
-    /** This method returns the expression, as readable for the user.
-      * @return String The expression. */
-    public static String getExpression(){
-      return command; 
-    }
-    
-    /* This method calculates by calling start value selection. 
-     * @throws NumberFormatException This is in case the input is a string.
-     * @throws NullPointerException This is in case the JOptionPane is closed without an input.
-     */
-    private void calculate(){
-      if (!verifyCommandValidity(true))
-        return;
-      if (command.equals("")){
-        JOptionPane.showMessageDialog(this,"Fatal Error: You cannot calculate without inputting an equation!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input", JOptionPane.ERROR_MESSAGE);
+        command = command.substring(0, command.length() -3);
         return;
       }
-      if (Settings.shouldDisplay())
-        new StartValueSelection();
-      else{
-        while(true){
-          String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
-          try{
-            if (s == null)
-              return;
-            guess = Double.parseDouble(s);
-            Operation.setOperation(NewtonRaphsonApp.getCommand());
-            if (Operation.derivative(guess) <= Operation.ACCURACY){
-              JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
-            }else{
-              Operation.setOperation(NewtonRaphsonApp.getCommand());
-              double ans = Operation.compute(guess);
-              
-              if (ans == Integer.MAX_VALUE){
-                JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
-              }
-              else{
-                JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (ans));
-              }
-              break;
-              
-            }
-          }
-          catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
-          }
-          catch(NullPointerException e){
+    }
+    else if ((x == 1 && y == 3) || (x == 1 && y == 4) || (x == 1 && y == 0)){
+      outputNotSupported();
+      return;
+    }
+    else if (x == 3 && y == 4){
+      JOptionPane.showMessageDialog(this,"Notice: Decimals are not supported in this version!","Notice: Unsupported Operation", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    
+    verifyCommandValidity(false);
+    
+    if (!cmdBefore.equals(command)){
+      if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
+        expression = expression.substring(0, expression.length()-1) + command.substring(cmdBefore.length()) + " ";
+      else
+        expression = expression + command.substring(cmdBefore.length()) + " ";
+      if (expression.endsWith("( ")){
+        if (expression.charAt(expression.length()-4) >= '0' && expression.charAt(expression.length()-4) <= '9' || expression.charAt(expression.length()-4) == 'X')
+          expression = expression.substring(0, expression.length()-2) + "* ( ";
+        else
+          expression = expression.substring(0, expression.length()-2) + " ( "; //extra space .. doesn't matter tho
+      }
+      
+      if (expression.length() > 3 && expression.charAt(expression.length()-3) == '^'){
+        expression = expression.substring(0, expression.length()-3) + " ^ " + expression.charAt(expression.length()-2);
+      }
+    }
+    System.out.println(expression);
+  }
+  
+  /** This helper method removes the last operation */
+  private void removeLastOperation(){
+    command = command.substring(0, command.length()-1);
+  }
+  
+  /** This method calculates the validity of a command.
+    * @param isFinal boolean This determines if it is the final computation (in which case different things need to be verified, for example appropriate closing brackets)
+    * @return boolean This determines if it is valid.
+    */
+  
+  private boolean verifyCommandValidity(boolean isFinal){
+    if (!InputVerification.hasBalancedBrackets(command, isFinal)){
+      JOptionPane.showMessageDialog(this,"Fatal Error: You have invalid bracket proportions!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+      removeLastOperation();
+      return false;
+    }
+    if (!InputVerification.hasRepeatedInvalidOperators(command)){
+      JOptionPane.showMessageDialog(this,"Fatal Error: Invalid Input! You cannot have repeated / invalid operators.","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+      removeLastOperation();
+      return false;
+    }
+    return true;
+  }
+  
+  /**
+   * This method returns the command.
+   * @return String The command.
+   */
+  
+  public static String getCommand(){
+    return expression;
+  }
+  
+  /** This method returns the expression, as readable for the user.
+    * @return String The expression. */
+  public static String getExpression(){
+    return command; 
+  }
+  
+  /* This method calculates by calling start value selection. 
+   * @throws NumberFormatException This is in case the input is a string.
+   * @throws NullPointerException This is in case the JOptionPane is closed without an input.
+   */
+  private void calculate(){
+    if (!verifyCommandValidity(true))
+      return;
+    if (command.equals("")){
+      JOptionPane.showMessageDialog(this,"Fatal Error: You cannot calculate without inputting an equation!","Fatal Error: Invalid Input",JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    if (Settings.shouldDisplay())
+      new StartValueSelection();
+    else{
+      while(true){
+        String s = JOptionPane.showInputDialog("Please enter your guess. Numbers only!");
+        try{
+          if (s == null)
             return;
+          guess = Double.parseDouble(s);
+          Operation.setOperation(NewtonRaphsonApp.getCommand());
+          if (Operation.derivative(guess) <= Operation.ACCURACY){
+            JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
+          }else{
+            Operation.setOperation(NewtonRaphsonApp.getCommand());
+            double ans = Operation.compute(guess);
+            
+            if (ans == Integer.MAX_VALUE){
+              JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
+            }
+            else{
+              JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (ans));
+            }
+            break;
+            
           }
+        }
+        catch(NumberFormatException e){
+          JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
+        }
+        catch(NullPointerException e){
+          return;
         }
       }
     }
+  }
+  
+  /** This method gets the x position and y position of a click
+    * @param arg0 MouseEvent This is a MouseEvent reference variable */
+  
+  @Override
+  public void mousePressed(MouseEvent arg0) {
+    int x = (arg0.getX()) / 58;
+    int y = (arg0.getY() - 100) / 50;
     
-    /** This method gets the x position and y position of a click
-      * @param arg0 MouseEvent This is a MouseEvent reference variable */
+    if (x < 0 || x > 7 || y < 0 || y > 4)
+      return;
     
-    @Override
-    public void mousePressed(MouseEvent arg0) {
-      int x = (arg0.getX()) / 58;
-      int y = (arg0.getY() - 100) / 50;
-      
-      if (x < 0 || x > 7 || y < 0 || y > 4)
-        return;
-      
-      turnedOn = ((x == 4 && y == 0) ? (true) : (false));
-      turnedOff = ((x == 5 &&
-                    y == 0) ? (true) : (false));
-      drawHighlight = true;
-      
-      if (x >=4 && x <= 6 && y == 4)
-        drawZero = true;
-      else
-        drawZero = false;
-      
-      highlightX = x;
-      highlightY = y;
-      
-      if (off)
-        return;
-      
-      if (x == 7 && y == 4){ //calculate button
-        calculate();
-        return; 
-      }
-      
-      if (x == 6 && y == 0){
-        command = "";
-        expression = "";
-      }
-      
-      if (command.length() > 18)
-        return;
-      
-      updateCommand(x, y);
-      repaint();
+    turnedOn = ((x == 4 && y == 0) ? (true) : (false));
+    turnedOff = ((x == 5 &&
+                  y == 0) ? (true) : (false));
+    drawHighlight = true;
+    
+    if (x >=4 && x <= 6 && y == 4)
+      drawZero = true;
+    else
+      drawZero = false;
+    
+    highlightX = x;
+    highlightY = y;
+    
+    if (off)
+      return;
+    
+    if (x == 7 && y == 4){ //calculate button
+      calculate();
+      return; 
     }
     
-    /** This method is invoked when the mouse is released, and takes out the highlight.
-      * @param arg0 MouseEvent This is a MouseEvent reference variable */
-    
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-      drawHighlight = false;
-      repaint();
+    if (x == 6 && y == 0){
+      command = "";
+      expression = "";
     }
     
-    /** This method determines if the input is a number.
-      * @param a String This is the input
-      * @throws NumberFormatException This is to test to see if the input is a number. */
-    private boolean isNumber(String a){
-      try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
-    }    
+    if (command.length() > 18)
+      return;
+    
+    updateCommand(x, y);
+    repaint();
+  }
+  
+  
+  /** This method is invoked when the mouse is released, and takes out the highlight.
+    * @param arg0 MouseEvent This is a MouseEvent reference variable */
+  public void mouseReleased(MouseEvent arg0) {
+    drawHighlight = false;
+    repaint();
+  }
+  
+  /** This method determines if the input is a number.
+    * @param a String This is the input
+    * @throws NumberFormatException This is to test to see if the input is a number. */
+  private boolean isNumber(String a){
+    try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
+  }    
+  
+  /**
+   * The purpose of this method is to start the program, as this is the main method.
+   * @param args String [] The purpose of this is to pass arguements to the main method.
+   */
+  public static void main(String[] args) {
+    new NewtonRaphsonApp();
+  }
+  
+  /** This method is for when the mouse is clicked.
+    * @param arg0 This is a MouseEvent reference variable */
+  public void mouseClicked(MouseEvent arg0) {}
+  
+  /** This method is for when the mouse is entered.
+    * @param arg0 This is a MouseEvent reference variable */
+  public void mouseEntered(MouseEvent arg0) {}
+  
+  /** This method is for when the mouse is exited.
+    * @param arg0 MouseEvent This is a MouseEvent reference variable */
+  public void mouseExited(MouseEvent arg0) {}
 }
