@@ -15,8 +15,8 @@ public class Operations{
     singleOperator.add("sin");
     singleOperator.add("cos");
     singleOperator.add("tan");
-    singleOperator.add("sinh");
-    singleOperator.add("cosh");
+    singleOperator.add("snh");
+    singleOperator.add("csh");
     singleOperator.add("log");
     
     operator.add("*");
@@ -75,9 +75,9 @@ public class Operations{
       return Math.cos(a);
     if (operator.equals("tan"))
       return Math.tan(a);
-    if (operator.equals("cosh"))
+    if (operator.equals("csh"))
       return Math.cosh(a);
-    if (operator.equals("sinh"))
+    if (operator.equals("snh"))
       return Math.sinh(a);
     if (operator.equals("log"))
       return Math.log(a);
@@ -101,6 +101,9 @@ public class Operations{
     order.put("cos", 6);
     order.put("tan", 6);
     order.put("log", 6);
+    
+    order.put("snh", 7);
+    order.put("cnh", 7);
     
     if (!order.containsKey(b))
       return false;

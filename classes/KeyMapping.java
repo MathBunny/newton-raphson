@@ -22,9 +22,9 @@ public class KeyMapping{
     getCommandAppending.put("2|2", "tan(");
     getCommandAppending.put("2|3", "(");
     getCommandAppending.put("2|4", ")");
-    getCommandAppending.put("3|0", "sinh(");
-    getCommandAppending.put("3|1", "cosh(");
-    getCommandAppending.put("3|2", "tanh(");
+    getCommandAppending.put("3|0", "snh(");
+    getCommandAppending.put("3|1", "csh(");
+    getCommandAppending.put("3|2", "tnh(");
     getCommandAppending.put("3|3", "^(");
     getCommandAppending.put("4|1", "7");
     getCommandAppending.put("4|2", "4");

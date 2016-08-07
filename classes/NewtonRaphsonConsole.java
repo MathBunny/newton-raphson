@@ -15,17 +15,12 @@ public class NewtonRaphsonConsole{
     
   }
   
-  public void mainMenu(){
-    System.out.println("Main menu: " );
-    System.out.println("1. Compute (with steps)");
-    System.out.println("2. Compute (without steps)");
-    System.out.println("3. Exit");
-    int option = 2;
+  public int getInput(){
     while(true){ //quit
       try{
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        option = Integer.parseInt(in.readLine());
-        break;
+        int option = Integer.parseInt(in.readLine());
+        return option;
       }
       catch(IOException e){
         System.out.println("Error: Please retry, an input error occured.");
@@ -34,14 +29,35 @@ public class NewtonRaphsonConsole{
         System.out.println("Error: Please enter a number.");
       }
     }
+  }
+  
+  public void mainMenu(){
+    System.out.println("Main menu: " );
+    System.out.println("1. Compute (with steps)");
+    System.out.println("2. Compute (without steps)");
+    System.out.println("3. Exit");
+    int option = getInput();
     if (option == 3){
       System.exit(0);
     }
     else if (option == 2){
       //
-      System.out.println(new NumericalTokenizer().convertToSpacedNumericalFormat("sin(X)")); //works! wtf lol
-      Operation.setOperation(InfixToPostfix.infixToPostfix(new NumericalTokenizer().convertToSpacedNumericalFormat("sin(X)")));
-      System.out.println(Operation.compute(2.0));
+      System.out.println("Please input expression.");
+      //System.out.println(new NumericalTokenizer().convertToSpacedNumericalFormat("log(X)")); //works! wtf lol
+      try{
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        Operation.setOperation(InfixToPostfix.infixToPostfix(new NumericalTokenizer().convertToSpacedNumericalFormat(in.readLine())));
+      }
+      catch(IOException e){}
+      System.out.println("Please enter guess: ");
+      double guess = getInput();
+      double ans = Operation.compute(guess);
+      if (ans == Integer.MAX_VALUE){
+        System.out.println("Error: Could not compute a root.");
+      }
+      else{
+        System.out.println("Answer: " + ans);
+      }
     }
     else if (option == 1){
       //
