@@ -7,7 +7,7 @@ public class Operation{
   /** ACCURACY double This is the accurary of the operation. */
   static final double ACCURACY = 1e-10;
   /** MAX_ATTEMPTS int This is the max attempts. */
-  final static int MAX_ATTEMPTS = 1000;
+  final static int MAX_ATTEMPTS = 10000;
   
   /** This method evaluates the expression at a particular value.
     * @param value double This is the value at which it is evaluated. */

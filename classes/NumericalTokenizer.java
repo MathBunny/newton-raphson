@@ -9,14 +9,16 @@ public class NumericalTokenizer{
   private Operations operatorHelper = new Operations();
   
   /** This method converts the input to the proper format.
-    * @param s String This is the input string. */
+    * @param s String This is the input string. 
+    * @return String This is the converted string.
+    */
   public String convertToSpacedNumericalFormat(String s){
     StringBuilder ans = new StringBuilder("");
     int ptrA = 0;
     
     for(int x = 0; x < s.length(); x++){
-      if ((operatorHelper.isOperator(s.substring(ptrA, x+1)) || s.charAt(x) == 'x' || s.charAt(x) == '(' || s.charAt(x) == ')')){
-        if (operatorHelper.isSingleOperator(s.substring(ptrA, x+1)))
+      if ((operatorHelper.isOperator(s.substring(ptrA, x+1)) || s.charAt(x) == 'X' || s.charAt(x) == '(' || s.charAt(x) == ')')){
+        if (operatorHelper.isSingleOperator(s.substring(ptrA, x+1)) && x >= 2 && isNumber(s.charAt(x-2) + "")) //isNumber
           ans.append(" *");
         ans.append(" " + s.substring(ptrA, x+1));
         ptrA = x+1;
@@ -54,7 +56,9 @@ public class NumericalTokenizer{
   
   /** This method determines if the input is a number.
    * @param a String This is the input
-   * @throws NumberFormatException This is to test to see if the input is a number. */
+   * @throws NumberFormatException This is to test to see if the input is a number.
+   * @return boolean Indicates if the method is a boolean
+   */
   private boolean isNumber(String a){
     try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
   }    

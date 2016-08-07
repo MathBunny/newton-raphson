@@ -174,7 +174,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       expression = "";
     }
     
-    drawHighLight(g);
+    //drawHighLight(g);
     drawInterface(g);
     updateScreen(g);
   }
@@ -231,23 +231,23 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     
     verifyCommandValidity(false);
     
-    if (!cmdBefore.equals(command)){
-      if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
-        expression = expression.substring(0, expression.length()-1) + command.substring(cmdBefore.length()) + " ";
-      else
-        expression = expression + command.substring(cmdBefore.length()) + " ";
-      if (expression.endsWith("( ")){
-        if (expression.charAt(expression.length()-4) >= '0' && expression.charAt(expression.length()-4) <= '9' || expression.charAt(expression.length()-4) == 'X')
-          expression = expression.substring(0, expression.length()-2) + "* ( ";
-        else
-          expression = expression.substring(0, expression.length()-2) + " ( "; //extra space .. doesn't matter tho
-      }
-      
-      if (expression.length() > 3 && expression.charAt(expression.length()-3) == '^'){
-        expression = expression.substring(0, expression.length()-3) + " ^ " + expression.charAt(expression.length()-2);
-      }
-    }
-    System.out.println(expression);
+    /*if (!cmdBefore.equals(command)){
+     if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
+     expression = expression.substring(0, expression.length()-1) + command.substring(cmdBefore.length()) + " ";
+     else
+     expression = expression + command.substring(cmdBefore.length()) + " ";
+     if (expression.endsWith("( ")){
+     if (expression.charAt(expression.length()-4) >= '0' && expression.charAt(expression.length()-4) <= '9' || expression.charAt(expression.length()-4) == 'X')
+     expression = expression.substring(0, expression.length()-2) + "* ( ";
+     else
+     expression = expression.substring(0, expression.length()-2) + " ( "; //extra space .. doesn't matter tho
+     }
+     
+     if (expression.length() > 3 && expression.charAt(expression.length()-3) == '^'){
+     expression = expression.substring(0, expression.length()-3) + " ^ " + expression.charAt(expression.length()-2);
+     }
+     }
+     System.out.println(expression);*/
   }
   
   /** This helper method removes the last operation */
@@ -280,7 +280,8 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
    */
   
   public static String getCommand(){
-    return expression;
+    System.out.println("CALC: " + new NumericalTokenizer().convertToSpacedNumericalFormat(command));
+    return new NumericalTokenizer().convertToSpacedNumericalFormat(command); //expression;
   }
   
   /** This method returns the expression, as readable for the user.
@@ -310,21 +311,21 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
             return;
           guess = Double.parseDouble(s);
           Operation.setOperation(NewtonRaphsonApp.getCommand());
-          if (Operation.derivative(guess) <= Operation.ACCURACY){
-            JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
-          }else{
-            Operation.setOperation(NewtonRaphsonApp.getCommand());
-            double ans = Operation.compute(guess);
-            
-            if (ans == Integer.MAX_VALUE){
-              JOptionPane.showMessageDialog(this, "Error: Time-out. Please try another guess, or change the expression.");
-            }
-            else{
-              JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (ans));
-            }
-            break;
-            
+          //if (Operation.derivative(guess) <= Operation.ACCURACY && 1 == 2){ //ignore
+          //  JOptionPane.showMessageDialog(null, "Error: The slope of the tangent is zero! Enter a valid guess point, or enter an expression with a possible root.", "Error: Slope is zero.", JOptionPane.PLAIN_MESSAGE);
+          //}else{
+          Operation.setOperation(NewtonRaphsonApp.getCommand());
+          double ans = Operation.compute(guess);
+          
+          if (ans == Integer.MAX_VALUE){
+            JOptionPane.showMessageDialog(this, "Sorry, could not find a root. Please enter a valid solvable expression.");
           }
+          else{
+            JOptionPane.showMessageDialog(this, "Solution found, there is a root at: x = " + (ans));
+          }
+          break;
+          
+          //}
         }
         catch(NumberFormatException e){
           JOptionPane.showMessageDialog(null, "Error: Please enter a double!", "Error: Input Invalid", JOptionPane.PLAIN_MESSAGE);
@@ -377,7 +378,7 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
       return;
     
     updateCommand(x, y);
-    repaint();
+    //repaint();
   }
   
   
@@ -390,7 +391,9 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
   
   /** This method determines if the input is a number.
     * @param a String This is the input
-    * @throws NumberFormatException This is to test to see if the input is a number. */
+    * @throws NumberFormatException This is to test to see if the input is a number. 
+    * @return boolean This indicates if it is a number.
+    */
   private boolean isNumber(String a){
     try{Integer.parseInt(a);return true;} catch(NumberFormatException e){return false;}
   }    
