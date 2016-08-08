@@ -8,7 +8,7 @@ public class Operation{
   static final double ACCURACY = 1e-10;
   /** MAX_ATTEMPTS int This is the max attempts. */
   final static int MAX_ATTEMPTS = 10000;
-  
+  /** TEST_CASES double [] These are testcases used to try on functions for x values. */
   final static double[] TEST_CASES = new double[]{-100, -50, 0, 1, 50, 100};
   
   /** This method evaluates the expression at a particular value.

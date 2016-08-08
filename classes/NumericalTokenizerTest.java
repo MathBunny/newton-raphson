@@ -6,10 +6,7 @@ import junit.framework.TestCase;
 public class NumericalTokenizerTest extends TestCase {
   
   /**
-   * A test method.
-   * (Replace "X" with a name describing the test.  You may write as
-   * many "testSomething" methods in this class as you wish, and each
-   * one will be called when running JUnit over this class.)
+   * Tests the ConvertToSpacedNumericalFormat method.
    */
   public void testConvertToSpacedNumericalFormat() {
     NumericalTokenizer nT = new NumericalTokenizer();
@@ -19,9 +16,10 @@ public class NumericalTokenizerTest extends TestCase {
     assertEquals("x^2+3x => x ^ 2 + 3 * x", "X ^ 2 + 3 * X", nT.convertToSpacedNumericalFormat("X^2+3X"));
     assertEquals("9 => 9", "9", nT.convertToSpacedNumericalFormat("9"));
     assertEquals("x => x", "X", nT.convertToSpacedNumericalFormat("X"));
-    assertEquals("99+3", "99 + 3", nT.convertToSpacedNumericalFormat("99+3"));
+    assertEquals("99+3 => 99 + 3", "99 + 3", nT.convertToSpacedNumericalFormat("99+3"));
   }
   
+  /** Class constructor for unit tests. */
   public NumericalTokenizerTest(){
     super();
   }
