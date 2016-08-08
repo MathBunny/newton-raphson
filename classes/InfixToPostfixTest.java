@@ -14,6 +14,7 @@ public class InfixToPostfixTest extends TestCase {
     assertEquals("X * 3 => X 3 *", "X 3 *", InfixToPostfix.infixToPostfix("X * 3"));
     assertEquals("X => X", "X", InfixToPostfix.infixToPostfix("X"));
     assertEquals("X + X - 3 * 4 => X X 3 4 * - +", "X X 3 4 * - +", InfixToPostfix.infixToPostfix("X + X - 3 * 4"));
+    assertEquals("X + ( X - 3 ) * 9 => X X 3 - 4 *", "X X 3 - 9 * +", InfixToPostfix.infixToPostfix("X + ( X - 3 ) * 9"));
   }
   
   /** Class constructor for unit tests. */

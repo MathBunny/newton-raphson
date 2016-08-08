@@ -13,9 +13,11 @@ It's important to note that:
 * Can compute over 1,000 iterations of Newton's method
 * Various different trignometric functions with scientific constants
 * Utilized Dijkstra's Shunting-Yard algorithm (Reverse Polish Notation) and stacks to parse expressions
+* JUnit tests
+* Ability to run in a console window
 
 ##How to Run & Documentation
-Simply run the `NewtonRaphsonApp.java`, and the program will run. Find JavaDoc documentation in the `doc/` folder.
+Simply compile the classes and run the `NewtonRaphsonApp.java`, and the program will run. Find JavaDoc documentation in the `doc/` folder. If you are interested in running this app through a command-line interface, run `NewtonRaphsonConsole.java` instead.
 
 ##Screenshot
 ![Screenshot](http://horatiulazu.ca/software/images/NewtonRaphson.png "Screenshot")
