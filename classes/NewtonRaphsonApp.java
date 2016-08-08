@@ -280,7 +280,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
    */
   
   public static String getCommand(){
-    System.out.println("CALC: " + new NumericalTokenizer().convertToSpacedNumericalFormat(command));
     return new NumericalTokenizer().convertToSpacedNumericalFormat(command); //expression;
   }
   
