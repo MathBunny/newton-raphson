@@ -7,7 +7,9 @@ public class Operation{
   /** ACCURACY double This is the accurary of the operation. */
   static final double ACCURACY = 1e-10;
   /** MAX_ATTEMPTS int This is the max attempts. */
-  final static int MAX_ATTEMPTS = 1000;
+  final static int MAX_ATTEMPTS = 10000;
+  /** TEST_CASES double [] These are testcases used to try on functions for x values. */
+  final static double[] TEST_CASES = new double[]{-100, -50, 0, 1, 50, 100};
   
   /** This method evaluates the expression at a particular value.
     * @param value double This is the value at which it is evaluated. */
@@ -16,7 +18,9 @@ public class Operation{
   }
   
   /** This method applies Newton's approximation to solve for the root.
-    * @param guess double This is the user's value for x. */
+    * @param guess double This is the user's value for x. 
+    * @return double This is the answer.
+    */
   public static double compute(double guess){
     final double ACCEPTABLE_CHANGE = ACCURACY; //accuracy for the answer
     final double ACCEPTABLE_HORIZONTAL_SLOPE = ACCURACY; //acceptible horizontal slope to prevent timeouts
