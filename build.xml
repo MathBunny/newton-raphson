@@ -1,0 +1,29 @@
+<project name="NewtonRaphson" default="dist" basedir=".">
+	<description>Newton Raphson Build (ANT) file for Travis CI</description>
+ 
+	<property name="build" location="build"/>
+	<property name="junit" location="lib/junit.jar"/>
+ 
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${build}"/>
+		<mkdir dir="${build}/classes"/>
+	</target>
+ 
+	<target name="compile" depends="init" description="compile">
+		<javac srcdir="${basedir}" destdir="${build}/classes"/>
+		<classpath>
+			<pathelement location="${junit}"/>
+		</classpath>
+	</target>
+ 
+	<target name="dist" depends="compile">
+		<mkdir dir="${dist}/lib"/>
+		<jar jarfile="${dist}/lib/travis-playground-${DSTAMP}.jar" basedir="${build}"/>
+	</target>
+ 
+	<target name="clean" description="clean up" >
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+	</target>
+</project>
