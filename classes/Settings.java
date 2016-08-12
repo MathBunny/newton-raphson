@@ -1,3 +1,4 @@
+package classes;
 import java.io.*;
 
 /** This class sees if the additional screen should be displayed based off of the configuration file.

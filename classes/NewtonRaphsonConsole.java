@@ -1,3 +1,4 @@
+package classes;
 import java.io.*;
 
 /** This class lets the user find the roots of an equation.
