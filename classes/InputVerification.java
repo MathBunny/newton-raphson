@@ -1,4 +1,5 @@
 package classes;
+
 /**
  * This class verifies the input
  * @author Horatiu Lazu

@@ -5,6 +5,8 @@ import classes.*;
 
 /**
  * NumericalTokenizerTest test cases.
+ * @author Horatiu Lazu
+ * @version 1.0
  */
 public class NumericalTokenizerTest{
   

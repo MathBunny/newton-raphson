@@ -1,7 +1,10 @@
 package classes;
+
 /** This class solves for the root of expressions.
   * @author Horatiu Lazu
-  * @version 1.0.0.0 */
+  * @version 1.0
+  */
+
 public class Operation{
   /** operation String This is the current operation. */
   private static String operation = "";
