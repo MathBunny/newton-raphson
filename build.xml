@@ -33,6 +33,10 @@
 		<mkdir dir="${dist}/lib"/>
 		<jar jarfile="${dist}/lib/travis-playground-${DSTAMP}.jar" basedir="${build}"/>
 	</target>
+	
+	<target name="test" depends="compile">
+	
+	</target>
  
 	<!-- <junit fork="yes" showoutput="true">
 		<classpath location="lib/junit-4.10.jar"/>
