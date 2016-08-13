@@ -1,12 +1,10 @@
 <project name="NewtonRaphson" default="dist" basedir=".">
-		<description>
-				travis stuff
-		</description>
+		<description> Newton Raphson Build for Travis CI</description>
  
 	<property name="src" location="classes"/>
 	<property name="build" location="build"/>
 	<property name="dist"  location="dist"/>
-	<property name="test"  location="test"/>
+	<property name="test"  location=""/> <!-- test -->
 	<property name="junit" location="lib/junit-4.10.jar"/>
  
 	<path id="classpath.test">
@@ -20,7 +18,6 @@
 		<tstamp/>
 		<mkdir dir="${build}"/>
 		<mkdir dir="${build}/test"/>
-		<mkdir dir="${build}/main"/>
 	</target>
  
 	<target name="compile" depends="init" description="compile">
@@ -37,6 +34,12 @@
 		<jar jarfile="${dist}/lib/travis-playground-${DSTAMP}.jar" basedir="${build}"/>
 	</target>
  
+	<!-- <junit fork="yes" showoutput="true">
+		<classpath location="lib/junit-4.10.jar"/>
+		<test name="test/InfixToPostfixTest"/>
+	</junit>
+	
+	
 	<target name="test" depends="compile">
 		<junit fork="yes" haltonfailure="true">
 			<classpath refid="classpath.test" />
@@ -47,7 +50,7 @@
 				</fileset>
 			</batchtest>
 		</junit>
-	</target>
+	</target> -->
  
 	<target name="clean" description="clean up" >
 		<delete dir="${build}"/>
