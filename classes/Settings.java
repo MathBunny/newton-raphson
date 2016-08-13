@@ -1,3 +1,4 @@
+package classes;
 import java.io.*;
 
 /** This class sees if the additional screen should be displayed based off of the configuration file.
@@ -11,12 +12,14 @@ public class Settings{
     */
   public static boolean shouldDisplay(){
     try{
-      BufferedReader in = new BufferedReader(new FileReader("settings.txt"));
+      BufferedReader in = new BufferedReader(new FileReader(new File(NewtonRaphsonApp.class.getClassLoader().getResource("classes/settings.txt").toURI())));
       if (in.readLine().equals("display= false"))
         return false;
       return true;
     }
-    catch(Exception e){}
+    catch(Exception e){
+      System.out.println("Did not find file");
+    }
     return true;
   }
 }

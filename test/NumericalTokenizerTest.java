@@ -1,10 +1,14 @@
-import junit.framework.TestCase;
+package test;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import classes.*;
 
 /**
  * NumericalTokenizerTest test cases.
  */
-public class NumericalTokenizerTest extends TestCase {
+public class NumericalTokenizerTest{
   
+  @Test
   /**
    * Tests the ConvertToSpacedNumericalFormat method.
    */

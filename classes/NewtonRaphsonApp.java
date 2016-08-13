@@ -1,3 +1,4 @@
+package classes;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.*;
@@ -75,12 +76,13 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
    */
   private void fetchImages(){
     try{
-      backgroundImg = ImageIO.read(new File("../images/CalculatorBackground.jpg"));
-      display = ImageIO.read(new File("../images/monitor.jpg"));
-      highlight = ImageIO.read(new File("../images/highlight.png"));
-      displayInitialize = ImageIO.read(new File("../images/initializing.jpg"));
-      displayOff = ImageIO.read(new File("../images/off.jpg"));
-      maxChar = ImageIO.read(new File("../images/monitor_max.jpg"));
+      backgroundImg = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/CalculatorBackground.jpg")));
+      //backgroundImg = ImageIO.read(new File("../images/CalculatorBackground.jpg"));
+      display = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/monitor.jpg")));
+      highlight = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/highlight.png")));
+      displayInitialize = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/initializing.jpg")));
+      displayOff = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/off.jpg")));
+      maxChar = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/monitor_max.jpg")));
     }
     catch(IOException e){
       JOptionPane.showMessageDialog(this, "Error: Could not find required image files!");

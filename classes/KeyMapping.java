@@ -1,3 +1,4 @@
+package classes;
 import java.util.*;
 
 /** This class stores the key mapping for the keyboard on the calculator.

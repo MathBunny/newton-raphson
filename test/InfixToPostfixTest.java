@@ -1,12 +1,17 @@
-import junit.framework.TestCase;
+package test;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import classes.*;
 
 /**
  * InfixToPostfix test cases.
  * @author Horatiu Lazu
  * @version 1.0
  */
-public class InfixToPostfixTest extends TestCase {
+public class InfixToPostfixTest {
   
+  @Test
   /**
    * Tests the countCharacters method.
    */
@@ -16,7 +21,7 @@ public class InfixToPostfixTest extends TestCase {
     assertEquals("X + X - 3 * 4 => X X 3 4 * - +", "X X 3 4 * - +", InfixToPostfix.infixToPostfix("X + X - 3 * 4"));
     assertEquals("X + ( X - 3 ) * 9 => X X 3 - 4 *", "X X 3 - 9 * +", InfixToPostfix.infixToPostfix("X + ( X - 3 ) * 9"));
   }
-  
+
   /** Class constructor for unit tests. */
   public InfixToPostfixTest(){
     super();

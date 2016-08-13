@@ -1,12 +1,18 @@
-import junit.framework.TestCase;
+package test;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import classes.*;
+
 
 /**
  * InputVerification test cases.
  * @author Horatiu Lazu
  * @version 1.0
  */
-public class InputVerificationTest extends TestCase {
+public class InputVerificationTest {
   
+  @Test
   /**
    * Tests the countCharacters method.
    */
@@ -15,6 +21,7 @@ public class InputVerificationTest extends TestCase {
     assertEquals("!!! has 3 '!'", 3, InputVerification.countCharacter("!!!", '!'));
   }
   
+  @Test
   /**
    * Tests the isValidExponent method. 
    */
@@ -23,6 +30,7 @@ public class InputVerificationTest extends TestCase {
     assertEquals("X)^2 is not valid", false, InputVerification.isValidExponent("X)^2"));
   }
   
+  @Test
   /**
    * Tests if the brackets are proportional. */
   public void testHasBalancedBrackets(){

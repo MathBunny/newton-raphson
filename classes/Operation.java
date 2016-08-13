@@ -1,3 +1,4 @@
+package classes;
 /** This class solves for the root of expressions.
   * @author Horatiu Lazu
   * @version 1.0.0.0 */
