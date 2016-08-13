@@ -18,7 +18,7 @@ It's important to note that:
 * Various different trignometric functions with scientific constants
 * Utilized Dijkstra's Shunting-Yard algorithm (Reverse Polish Notation) and stacks to parse expressions
 * JUnit tests
-* Ability to run in a console window
+* Ability to run in a console window (no GUI)
 
 ##How to Run & Documentation:
 You can use ANT to build this project, or you can manually compile all the Java files. If you are interested in running this app through a command-line interface, run `NewtonRaphsonConsole.java`, or GUI `NewtonRaphsonApp.java`. Documentation can be found in the `/doc/` folder.

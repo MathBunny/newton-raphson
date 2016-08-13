@@ -3,7 +3,8 @@ import java.io.*;
 
 /** This class lets the user find the roots of an equation.
   * @author Horatiu Lazu
-  * @version 1.0 */
+  * @version 1.0 
+  */
 public class NewtonRaphsonConsole{
   /** Main method for the program.
     * @param args String [] These are the arguments. */

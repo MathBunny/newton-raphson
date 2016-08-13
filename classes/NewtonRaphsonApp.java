@@ -232,24 +232,6 @@ public class NewtonRaphsonApp extends JFrame implements ActionListener, MouseLis
     }
     
     verifyCommandValidity(false);
-    
-    /*if (!cmdBefore.equals(command)){
-     if (command.length() >= 2 && isNumber(command.charAt(command.length()-1) + "") && isNumber(command.charAt(command.length()-2) + ""))
-     expression = expression.substring(0, expression.length()-1) + command.substring(cmdBefore.length()) + " ";
-     else
-     expression = expression + command.substring(cmdBefore.length()) + " ";
-     if (expression.endsWith("( ")){
-     if (expression.charAt(expression.length()-4) >= '0' && expression.charAt(expression.length()-4) <= '9' || expression.charAt(expression.length()-4) == 'X')
-     expression = expression.substring(0, expression.length()-2) + "* ( ";
-     else
-     expression = expression.substring(0, expression.length()-2) + " ( "; //extra space .. doesn't matter tho
-     }
-     
-     if (expression.length() > 3 && expression.charAt(expression.length()-3) == '^'){
-     expression = expression.substring(0, expression.length()-3) + " ^ " + expression.charAt(expression.length()-2);
-     }
-     }
-     System.out.println(expression);*/
   }
   
   /** This helper method removes the last operation */

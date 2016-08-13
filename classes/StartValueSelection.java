@@ -8,7 +8,8 @@ import java.text.*;
 
 /** This class shows the root of an expression, and allows the user to modify their estimates. 
   * @author Horatiu Lazu
-  * @version 1.0 */
+  * @version 1.0 
+  */
 @SuppressWarnings("serial")
 public class StartValueSelection extends JFrame implements MouseListener{
   /** panel JPanel This is the panel that is used for the graphics */

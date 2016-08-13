@@ -3,7 +3,8 @@ import java.util.*;
 
 /** This class evaluates postfix expressions.
   * @author Horatiu Lazu
-  * @version 1.0 */
+  * @version 1.0 
+  */
 
 public class PostfixEvaluater{
   

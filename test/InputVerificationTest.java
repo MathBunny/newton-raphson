@@ -1,5 +1,4 @@
 package test;
-
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import classes.*;
@@ -32,7 +31,8 @@ public class InputVerificationTest {
   
   @Test
   /**
-   * Tests if the brackets are proportional. */
+   * Tests if the brackets are proportional. 
+   */
   public void testHasBalancedBrackets(){
     assertEquals("(() is not balanced as final", false, InputVerification.hasBalancedBrackets("(()", true));
     assertEquals("(())) is not balanced as final", false, InputVerification.hasBalancedBrackets("(()))", true));

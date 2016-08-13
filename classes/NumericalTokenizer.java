@@ -1,10 +1,10 @@
 package classes;
-import java.util.*;
 
 /**
  * This class converts tokenizes and spaces expressions so it can be read by the parser.
  * @author Horatiu Lazu
- * @version 1.0 */
+ * @version 1.0 
+ */
 public class NumericalTokenizer{
   /** operatorHelper Operations This is the operations reference. */
   private Operations operatorHelper = new Operations();

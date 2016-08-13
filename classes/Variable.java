@@ -1,4 +1,5 @@
 package classes;
+
 /** This class abstracts a variable.
   * @author Horatiu Lazu 
   * @version 1.0

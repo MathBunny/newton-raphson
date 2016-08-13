@@ -5,6 +5,7 @@ import java.util.*;
   * @author Horatiu Lazu
   * @version 1.0
   */
+
 public class Operations{
   /** operator HashSet These are binary operators. */
   private HashSet<String> operator = new HashSet<String>();
