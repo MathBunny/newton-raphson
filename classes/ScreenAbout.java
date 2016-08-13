@@ -49,7 +49,7 @@ public class ScreenAbout extends JFrame implements ActionListener{
    */
   private void fetchImage(){
     try{
-      background = ImageIO.read(new File("../images/About.jpg"));
+      background = ImageIO.read((NewtonRaphsonApp.class.getClassLoader().getResource("images/About.jpg")));
     }
     catch(IOException e){
       JOptionPane.showMessageDialog(this, "Error: Could not find About screen background image!");
