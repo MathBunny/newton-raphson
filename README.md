@@ -1,6 +1,5 @@
 # Newton-Raphson Approximation Program
-[![Build Status](https://travis-ci.org/MathBunny/newton-raphson.svg?branch=master)](https://travis-ci.org/MathBunny/
-newton-raphson)
+[![Build Status](https://travis-ci.org/MathBunny/newton-raphson.svg?branch=master)](https://travis-ci.org/MathBunny/newton-raphson)
 ![Issue Tracker](https://img.shields.io/github/issues/MathBunny/newton-raphson.svg)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg?maxAge=2592000)]()
 
